@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Table;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class TableController extends Controller
@@ -25,7 +27,11 @@ class TableController extends Controller
      */
     public function create()
     {
-        return View('tables.create');
+        $users = User::where('id','<>',Auth::id())->get();
+
+        return View('tables.create',[
+            'users' => $users
+        ]);
     }
 
     /**

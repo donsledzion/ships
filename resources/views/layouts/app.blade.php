@@ -15,7 +15,7 @@
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
+    <link href="{{asset('css/styles.css"')}}" rel="stylesheet" />
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -32,18 +32,6 @@
 </main>
 
 
-<!-- Masthead-->
-@include('layouts.masthead')
-
-
-<!-- Icons Grid-->
-@include('layouts.icons-grid')
-<!-- Image Showcases-->
-@include('layouts.showcase')
-<!-- Testimonials-->
-@include('layouts.testimonials')
-<!-- Call to Action-->
-@include('layouts.call-to-action')
 <!-- Footer-->
 @include('layouts.footer')
 <!-- Bootstrap core JS-->
