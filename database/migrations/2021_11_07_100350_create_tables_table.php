@@ -15,6 +15,8 @@ class CreateTablesTable extends Migration
     {
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
+            $table->boolean('completed')->default(false);
+            $table->unsignedBigInteger('winner')->nullable()->default(null);
             $table->timestamps();
         });
     }

@@ -1,4 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
+    "/js/edit-board.js": "/js/edit-board.js",
+    "/js/create-game.js": "/js/create-game.js",
     "/css/app.css": "/css/app.css"
 }

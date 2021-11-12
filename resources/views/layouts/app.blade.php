@@ -15,12 +15,18 @@
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="{{asset('css/styles.css"')}}" rel="stylesheet" />
+    <link href="{{asset('css/styles.css')}}" rel="stylesheet" />
+    {{--<link href="{{asset('css/board.css')}}" rel="stylesheet" />--}}
+    @yield('header')
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <script src="{{ asset('js/app.js') }}" defer></script>
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
 </head>
 <body>
 <!-- Navigation-->
@@ -37,11 +43,16 @@
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+{{--<script src="js/scripts.js"></script>--}}
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 <!-- * *                               SB Forms JS                               * *-->
 <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->{{--
 <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>--}}
+
+<script type="text/javascript">
+    @yield('javascript')
+</script>
+@yield('js-files')
 </body>
 </html>

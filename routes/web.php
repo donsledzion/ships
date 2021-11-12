@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\TableController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('table',TableController::class)->middleware('auth');
+Route::get('/table/{table}/lobby',[TableController::class,'lobby'])->name('table.lobby')->middleware('auth');
+
 Route::resource('board', BoardController::class)->middleware('auth');
+Route::get('/user/{id}',[UserController::class,'show'])->name('user.show')->middleware('auth');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/error/{string?}',function($string=""){
+    return view('error',[
+        'message' => $string
+    ]);
+});
