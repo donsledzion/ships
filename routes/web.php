@@ -25,9 +25,11 @@ Auth::routes();
 Route::resource('table',TableController::class)->middleware('auth');
 Route::get('/table/{table}/lobby',[TableController::class,'lobby'])->name('table.lobby')->middleware('auth');
 
+
 Route::resource('board', BoardController::class)->middleware('auth');
 Route::get('/user/{id}',[UserController::class,'show'])->name('user.show')->middleware('auth');
 
+Route::post('/board/{board}/shot/{string}/{int}',[BoardController::class,'shot'])->middleware('auth');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/error/{string?}',function($string=""){

@@ -36,8 +36,5 @@ class Table extends Model
     {
         return Board::where('table_id',$this->id)->orderBy('id','desc')->first();
     }
-    /*public function getPlayer1Attribute(){
-        $board1 = $this->boards->orderBy('id','asc')->first();
 
-    }*/
 }

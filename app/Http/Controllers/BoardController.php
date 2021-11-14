@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\board;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class BoardController extends Controller
@@ -62,9 +63,17 @@ class BoardController extends Controller
      */
     public function edit(board $board)
     {
-        return view('boards.edit',[
-            'board' => $board
-        ]);
+        $user_id = Auth::id();
+        $board_owner = $board->user;
+        if($user_id == $board_owner->id) {
+            return view('boards.edit', [
+                'board' => $board
+            ]);
+        } else {
+            return view('error',[
+                'message' => __('errors.not_allowed')
+            ]);
+        }
     }
 
     /**
@@ -129,6 +138,39 @@ class BoardController extends Controller
             return response()->json([
                 'status' => 'fail',
                 'message' => 'wystąpił błąd! '.$e->getMessage()
+            ]);
+        }
+    }
+
+
+    public function shot(Board $board, string $column, int $row){
+        try{
+            $status = 'fail';
+            $message = '';
+
+            $cell = $board->getCell($column,$row);
+            if($cell=="#" || $cell=="*"){
+                $message = "To pole już było obstrzelane!";
+            } else if($cell=="@"){
+                $board->setCell($column,$row,"#");
+                $status = 'success';
+                $message = "Trafiony!";
+            } else {
+                $board->setCell($column,$row,"*");
+                $status = 'success';
+                $message = "Pudło!";
+            }
+
+
+            return response()->json([
+                'status' => $status,
+                'message' => $message
+            ]);
+
+        } catch(\Exception $e){
+            return response()->json([
+               'status' => 'error',
+               'message' => $e->getMessage()
             ]);
         }
     }
