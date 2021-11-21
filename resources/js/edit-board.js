@@ -128,10 +128,18 @@ $(function(){
         }).done(function(response){
             console.log("Well done! " + response.message);
             console.log("Board:");
-            console.log(response.board.fields);
-            Swal.fire('Udało się utworzyć planszę! Jak tylko wszyscy gracze będą gotowi możemy zaczynać!')
+            /*console.log(response.board.fields);*/
+            Swal.fire(response.message).then((result) => { if(result.isConfirmed) {
+                if (response.status === 'fail') {
+                }
+                    location.reload();
+                }
+            });
         }).fail(function(response){
-            console.log("Shit happened! " + response.message);
+            Swal.fire(response.message).then((result) => { if(result.isConfirmed){
+                location.reload();
+            }});
+            console.log("Shit happened! " + response.responseText.message);
         });
     });
 })

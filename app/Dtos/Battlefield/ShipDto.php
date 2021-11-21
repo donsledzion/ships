@@ -2,6 +2,7 @@
 
 namespace App\Dtos\Battlefield;
 
+
 class ShipDto implements IShipDto
 {
 
@@ -136,6 +137,14 @@ class ShipDto implements IShipDto
             }
         }
         return [abs($x_max-$x_min)+1,abs($y_max-$y_min)+1];
+    }
+
+    private function validateLocation($field){
+        foreach ($this->sections as $section){
+            if(!$field->getCell($section['x'],$section['y'])->isFree()){
+                return false;
+            }
+        }
     }
 
 }
