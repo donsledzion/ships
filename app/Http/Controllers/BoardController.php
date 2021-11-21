@@ -204,10 +204,14 @@ class BoardController extends Controller
                 $message = "To pole już było obstrzelane!";
             } else if($cell=="@"){
                 $board->setCell($column,$row,"#");
+                $message = "Trafiony!";
+                //$neighbours = $board->countFieldNeighbours($column,$row);
+
+                //error_log("Pole ".$column."".$row." ma ".$neighbours." sąsiadów...");
 
                 $status = 'success';
                 $result = 'hit';
-                $message = "Trafiony!";
+
             } else {
                 $board->setCell($column,$row,"*");
                 $status = 'success';

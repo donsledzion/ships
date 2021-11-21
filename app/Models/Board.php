@@ -191,17 +191,33 @@ class Board extends Model
         ]);
     }
 
+    public function countFieldNeighbours(string $column, int $row){
+        $column = ord($column);
+        error_log("Translated column: ".$column);
+        $neighbours = 0 ;
+        if(($this->getCell(chr($column-1),$row) == '@')||($this->getCell(chr($column-1),$row) == '#')){
+            error_log("Sprawdzam: [".chr($column-1).",".$row."]");
+            $neighbours++;
+        }
+        if(($this->getCell(chr($column+1),$row) == '@')||($this->getCell(chr($column+1),$row) == '#')){
+            error_log("Sprawdzam: [".chr($column+1).",".$row."]");
+            $neighbours++;
+        }
+        if(($this->getCell(chr($column),$row-1) == '@')||($this->getCell($column,$row-1) == '#')){
+            error_log("Sprawdzam: [".chr($column).",".($row-1)."]");
+            $neighbours++;
+        }
+        if(($this->getCell(chr($column),$row+1) == '@')||($this->getCell($column,$row+1) == '# ')){
+            error_log("Sprawdzam: [".chr($column).",".($row+1)."]");
+            $neighbours++;
+        }
+        return $neighbours;
+    }
+
     public function checkIfSunk(string $column, int $row)
     {
         $column = ord($column);
 
-        if((($this->getCell(chr($column-1),$row) == '@')||($this->checkIfSunk(chr($column-1),$row)))
-        ||(($this->getCell(chr($column+1),$row) == '@')||($this->checkIfSunk(chr($column+1),$row)))
-        ||(($this->getCell($column,$row-1) == '@')||($this->checkIfSunk($column,$row-1)))
-        ||(($this->getCell($column,$row+1) == '@')||($this->checkIfSunk($column,$row)+1))
-        ){
-            return false;
-        }
         return true;
     }
 

@@ -2,27 +2,30 @@
 
 namespace App\Dtos\Battlefield;
 
+use App\Models\Board;
+
 class FieldDto
 {
-    private $field;
+    private $fields;
 
-    private $four_master;
-    private $three_master;
-    private $two_master;
-    private $one_master;
+    private $ships;
 
 
-    public function __construct($input_fields)
+    public function __construct(Board $board)
     {
-        $this->field = json_decode($this->field,TRUE);
+        $this->fields = json_decode($board->fields,TRUE);
+
+
+
     }
 
     public function getField(string $column,string $row){
-        return $this->field[$column][$row];
+        return $this->fields[$column][$row];
     }
 
     public function markAsSunk(ShipDto $ship){
 
     }
+
 
 }
