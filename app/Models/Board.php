@@ -15,7 +15,6 @@ class Board extends Model
     protected $fillable = [
         'user_id',
         'table_id',
-        /*'fields',*/
         'initialized',
     ] ;
 
@@ -43,6 +42,10 @@ class Board extends Model
 
     public function getCell(string $column, int $row)
     {
+        if(($column<'A')||($column>'J')||($row<1)||($row>10)){
+            return false;
+        }
+        error_log("Pobieram pole: ".json_decode($this->fields,TRUE)[$column][$row]);
         return json_decode($this->fields,TRUE)[$column][$row];
     }
 
@@ -187,4 +190,19 @@ class Board extends Model
 
         ]);
     }
+
+    public function checkIfSunk(string $column, int $row)
+    {
+        $column = ord($column);
+
+        if((($this->getCell(chr($column-1),$row) == '@')||($this->checkIfSunk(chr($column-1),$row)))
+        ||(($this->getCell(chr($column+1),$row) == '@')||($this->checkIfSunk(chr($column+1),$row)))
+        ||(($this->getCell($column,$row-1) == '@')||($this->checkIfSunk($column,$row-1)))
+        ||(($this->getCell($column,$row+1) == '@')||($this->checkIfSunk($column,$row)+1))
+        ){
+            return false;
+        }
+        return true;
+    }
+
 }

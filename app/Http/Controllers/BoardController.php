@@ -204,6 +204,7 @@ class BoardController extends Controller
                 $message = "To pole już było obstrzelane!";
             } else if($cell=="@"){
                 $board->setCell($column,$row,"#");
+
                 $status = 'success';
                 $result = 'hit';
                 $message = "Trafiony!";

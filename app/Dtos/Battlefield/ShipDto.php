@@ -3,6 +3,8 @@
 namespace App\Dtos\Battlefield;
 
 
+use App\Models\Board;
+
 class ShipDto implements IShipDto
 {
 
@@ -145,6 +147,15 @@ class ShipDto implements IShipDto
                 return false;
             }
         }
+    }
+
+    public function checkIfSunk(Board $board){
+        foreach ($this->sections as $section){
+            if($board->getCell(chr($section['x'] + 64),$section['y']) == '@'){
+                return false;
+            }
+        }
+        return true;
     }
 
 }
