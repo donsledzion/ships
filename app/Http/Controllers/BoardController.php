@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Dtos\Battlefield\ShipDto;
+use App\Events\PlayerMoved;
 use App\Models\board;
+use App\Models\Table;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -90,33 +93,41 @@ class BoardController extends Controller
             $boardToUpdate->fields = $request->fields;
 
             error_log("====================================================");
-            error_log("SHIPS");
-            error_log("Four master:");
+            error_log("CREATING AND VALIDATING SHIPS");
             $four_master = json_decode($request->four_master,TRUE);
+            $four_masterDto = new ShipDto($four_master['fields']);
+            if(!$four_masterDto->validateIntegrity()){error_log("FOUR-MASTER - BŁĄD WALIDACJI");}
             $three_masters = json_decode($request->three_master,TRUE);
             $two_masters = json_decode($request->two_master,TRUE);
             $one_masters = json_decode($request->one_master,TRUE);
-            error_log("ping -1 ");
+
             foreach($four_master["fields"] as $field) {
-                error_log($field["x"]."".$field["y"]);
+                /*error_log($field["x"]."".$field["y"]);
+                error_log((ord($field["x"])-64)."".$field["y"]);*/
                 $boardToUpdate->setCell($field["x"],$field["y"],"@");
                 }
-            error_log("ping -2 ");
+
             foreach ($three_masters as $three_master) {
+                $three_masterDto = new ShipDto($three_master['fields']);
+                if(!$three_masterDto->validateIntegrity()){error_log("THREE-MASTER - BŁĄD WALIDACJI");}
                 foreach ($three_master["fields"] as $field) {
-                    error_log($field["x"]. "" . $field["y"]);
+                    /*error_log($field["x"]. "" . $field["y"]);*/
                     $boardToUpdate->setCell($field["x"], $field["y"], "@");
                 }
             }
             foreach ($two_masters as $two_master) {
+                $two_masterDto = new ShipDto($two_master['fields']);
+                if(!$two_masterDto->validateIntegrity()){error_log("TWO-MASTER - BŁĄD WALIDACJI");}
                 foreach ($two_master["fields"] as $field) {
-                    error_log($field["x"]. "" . $field["y"]);
+                    /*error_log($field["x"]. "" . $field["y"]);*/
                     $boardToUpdate->setCell($field["x"] , $field["y"], "@");
                 }
             }
             foreach ($one_masters as $one_master) {
+                $one_masterDto = new ShipDto($one_master['fields']);
+                if(!$one_masterDto->validateIntegrity()){error_log("ONE-MASTER - BŁĄD WALIDACJI");}
                 foreach ($one_master["fields"] as $field) {
-                    error_log($field["x"]. "" . $field["y"]);
+                    /*error_log($field["x"]. "" . $field["y"]);*/
                     $boardToUpdate->setCell($field["x"] , $field["y"], "@");
                 }
             }
@@ -124,6 +135,7 @@ class BoardController extends Controller
             error_log("====================================================");
             $boardToUpdate->initialized = true;
             $boardToUpdate->save();
+            $boardToUpdate->table->reportReady();
             return response()->json([
                 'status' => 'success',
                 'message' => 'pomyślnie zaktualizowano planszę',
@@ -144,8 +156,21 @@ class BoardController extends Controller
 
 
     public function shot(Board $board, string $column, int $row){
+        if(Auth::id()!==$board->table->current_player){
+            return response()->json([
+                'status' => 'fail',
+                'message' => 'Nie Twoja tura. Poczekaj.'
+            ]);
+        }
+        if(Auth::id()==$board->user->id){
+            return response()->json([
+                'status' => 'fail',
+                'message' => 'Serio? Przecież to Twoja plansza.'
+            ]);
+        }
         try{
             $status = 'fail';
+            $result = 'none';
             $message = '';
 
             $cell = $board->getCell($column,$row);
@@ -154,16 +179,23 @@ class BoardController extends Controller
             } else if($cell=="@"){
                 $board->setCell($column,$row,"#");
                 $status = 'success';
+                $result = 'hit';
                 $message = "Trafiony!";
             } else {
                 $board->setCell($column,$row,"*");
                 $status = 'success';
+                $result = 'missed';
                 $message = "Pudło!";
+                $board->table->switchPlayers();
             }
 
+            //$table = Table::find($board->table->id);
+
+            event(new PlayerMoved($message,$board,$column, $row, $result));
 
             return response()->json([
                 'status' => $status,
+                'result' => $result,
                 'message' => $message
             ]);
 

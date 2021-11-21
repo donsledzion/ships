@@ -48,7 +48,6 @@ class Board extends Model
 
     public function setCell(string $column, int $row, string $value)
     {
-        error_log("trying to set cell's value");
         $fields = json_decode($this->fields,TRUE) ;
         $fields[$column][$row] = $value ;
         $this->fields = json_encode($fields);

@@ -15,6 +15,7 @@ class Table extends Model
     protected $fillable  = [
         'completed',
         'winner',
+        'current_player',
     ] ;
 
     protected $casts =  [
@@ -35,6 +36,23 @@ class Table extends Model
     public function board2():Board
     {
         return Board::where('table_id',$this->id)->orderBy('id','desc')->first();
+    }
+
+    public function reportReady(){
+        if(($this->board1()->initialized)&&($this->board2()->initialized)){
+            $this->current_player = $this->board1()->user->id;
+            $this->save();
+        }
+    }
+
+    public function switchPlayers(){
+        if($this->current_player==$this->board1()->user->id){
+            $this->current_player = $this->board2()->user->id;
+        } else {
+            $this->current_player = $this->board1()->user->id;
+        }
+        $this->save();
+        return $this->current_player;
     }
 
 }

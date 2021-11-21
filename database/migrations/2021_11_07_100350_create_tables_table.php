@@ -17,6 +17,7 @@ class CreateTablesTable extends Migration
             $table->id();
             $table->boolean('completed')->default(false);
             $table->unsignedBigInteger('winner')->nullable()->default(null);
+            $table->unsignedBigInteger('current_player')->nullable()->default(null);
             $table->timestamps();
         });
     }
