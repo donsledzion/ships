@@ -57,18 +57,46 @@
                                             </td>
                                             <td>
                                                 <div class="event-wrap">
-
-                                                    <div class="meta">
-                                                        <div class="organizers">
-                                                            <a href="#">Aslan Lingker</a>
+                                                    @if($board->table->isCompleted())
+                                                        <div class="meta">
+                                                            <div class="time my-2">
+                                                                <span class="btn btn-success"><b>Zwycięzca {{$board->table->getWinner()->name}}</b></span>
+                                                            </div>
+                                                            <div class="time">
+                                                                <span class="btn btn-warning"></b>Zakończona {{($board->table->updated_at)->format('Y-M-d h:i')}}</b></span>
+                                                            </div>
                                                         </div>
-                                                        <div class="categories">
-                                                            <a href="#">Inspire</a>
+                                                    @elseif($board->table->getCurrentPlayer())
+                                                        <div class="meta">
+                                                            <div class="time my-2">
+                                                                <span class="btn btn-success"><b>Teraz gra {{$board->table->getCurrentPlayer()->name}}</b></span>
+                                                            </div>
+                                                            <div class="time">
+                                                                <span class="btn btn-warning"></b>Ostatnia akcja: {{($board->table->updated_at)->format('Y-M-d h:i')}}</b></span>
+                                                            </div>
                                                         </div>
-                                                        <div class="time">
-                                                            <span>05:35 AM - 08:00 AM 2h 25'</span>
+                                                    @else
+                                                        <div class="meta">
+                                                            <div class="time my-2">
+                                                                <span class="btn"><b>{{$board->table->board1()->user->name}} -
+                                                                    @if($board->table->board1()->initialized)
+                                                                        <button class="btn btn-success">Gotowy</button>
+                                                                    @else
+                                                                        <button class="btn btn-alert">Tworzy planszę</button>
+                                                                    @endif
+                                                                    </b></span>
+                                                            </div>
+                                                            <div class="time my-2">
+                                                                <span class="btn"><b>{{$board->table->board2()->user->name}} -
+                                                                    @if($board->table->board2()->initialized)
+                                                                        <button class="btn btn-success">Gotowy</button>
+                                                                    @else
+                                                                        <button class="btn btn-warning">Tworzy planszę</button>
+                                                                    @endif
+                                                                    </b></span>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    @endif
                                                 </div>
                                             </td>
                                             <td>
@@ -84,9 +112,11 @@
                                                 <div class="primary-btn">
                                                     <a class="btn btn-primary" href="{{route('table.show',[$board->table->id])}}">Otwórz</a>
                                                 </div>
-                                                <div class="primary-btn my-2">
-                                                    <a class="btn btn-success" href="{{route('table.lobby',[$board->table->id])}}">Lobby</a>
-                                                </div>
+                                                @if(!$board->table->isCompleted())
+                                                    <div class="primary-btn my-2">
+                                                        <a class="btn btn-success" href="{{route('table.lobby',[$board->table->id])}}">Lobby</a>
+                                                    </div>
+                                                @endif
                                             </td>
                                         </tr>
                                         @endforeach

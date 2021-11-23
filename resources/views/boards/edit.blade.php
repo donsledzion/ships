@@ -35,6 +35,10 @@
                 </div>
             </div>
             <div class="col-12 col-sm-2 tic-panel">
+                <span class="badge">Aktualnie tworzony:</span>
+                <div id="currently-creating">
+
+                </div>
                 Stwóz swoją planszę aby rozpocząć grę:
                 <br/><br/><b>Czteromasztowiec:</b>
                 <br/><b><button data-size="4" data-order="1" class="ship-picker btn btn-success border-1 border-warning my-1">1) </button></b>
@@ -60,6 +64,7 @@
     </div>
     <script type="text/javascript">
         const baseUrl = '{{url('')}}' ;
+        const baseAsset ='{{asset('/storage/img/')}}';
     </script>
 @section('js-files')
     <script src="{{ asset('js/edit-board.js') }}" ></script>

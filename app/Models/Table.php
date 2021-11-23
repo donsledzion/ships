@@ -55,4 +55,27 @@ class Table extends Model
         return $this->current_player;
     }
 
+    public function setCompleted(){
+        $this->completed = true;
+        $this->save();
+    }
+
+    public function setWinner($id){
+        $this->winner = $id;
+        $this->save();
+    }
+
+    public function isCompleted():bool{
+        return $this->completed;
+    }
+
+    public function getWinner()
+    {
+        return User::find($this->winner);
+    }
+
+    public function getCurrentPlayer()
+    {
+        return User::find($this->current_player);
+    }
 }

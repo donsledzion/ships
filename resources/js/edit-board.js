@@ -21,6 +21,25 @@ class Ship {
     constructor(size) {
         this.size = size;
         this.fields = [];
+        var img;
+        switch(size){
+            case 1:
+                img = 'mini-one-master.png' ;
+                break;
+            case 2:
+                img = 'mini-two-master.png' ;
+                break;
+            case 3:
+                img = 'mini-three-master.png' ;
+                break;
+            case 4:
+                img = 'mini-four-master.png' ;
+                break;
+            default:
+                img = 'mini-one-master.png' ;
+        }
+        this.avatar = img;
+
     }
 
     addField(field){
@@ -34,6 +53,10 @@ class Ship {
 
     getSize(){
         return this.size;
+    }
+
+    getAvatar(){
+        return this.avatar;
     }
 
     launch(see){
@@ -59,18 +82,74 @@ function readBoard(board_id){
     });
 }
 
+function currentShipDraw(current_ship){
+    var ship;
+    switch (current_ship.getSize()){
+        case 4:
+            ship = 'Czteromasztowiec';
+            break;
+        case 3:
+            ship = 'Trzymasztowiec';
+            break;
+        case 2:
+            ship = 'Dwumasztowiec';
+            break;
+        case 1:
+            ship = 'Jednomasztowiec';
+            break;
+        default:
+            ship = 'Coś się posypało';
+    }
+    $('#currently-creating').html('<img id="theImg" src="'+baseAsset+'/'+current_ship.getAvatar()+'" style="width:100%; height: 100%; object-fit: cover;" />');
+}
+
+function startPopup(){
+    Swal.fire({
+        title: '<strong>Przed rozpoczęciem rozgrywki stwórz swoją planszę</strong>',
+        html:
+            '<a href="#" class="list-group-item active">\n' +
+            '    Ustaw na planszy swoje statki w kolejności:\n' +
+            '  </a>' +
+            '<ul class="list-group">'+
+                '<li class="list-group-item justify-content-between">'+
+                    'Jeden czteromasztowiec'+
+                    '<span class="badge badge-default badge-pill">14</span>'+
+                '</li>'+
+                '<li class="list-group-item justify-content-between">'+
+                    'Dwa trójmasztowce'+
+                    '<span class="badge badge-default badge-pill">2</span>'+
+                '</li>'+
+                '<li class="list-group-item justify-content-between">'+
+                    'Trzy dwumasztowce'+
+                    '<span class="badge badge-default badge-pill">1</span>'+
+                '</li>'+
+                '<li class="list-group-item justify-content-between">'+
+                    'Cztery jednomasztowce'+
+                    '<span class="badge badge-default badge-pill">1</span>'+
+                '</li>'+
+            '</ul>',
+        focusConfirm: false,
+        confirmButtonText:
+            'Do dzieła!',
+    })
+}
+
+
 $(function(){
+    startPopup();
     readBoard($('#save-board').data("id"))
     let four_master = new Ship(+4) ;
     let three_master = [new Ship(+3), new Ship(+3)];
     let two_master = [new Ship(+2),new Ship(+2),new Ship(+2)];
     let one_master = [new Ship(+1),new Ship(+1),new Ship(+1),new Ship(+1)];
     let current_ship = four_master;
+    currentShipDraw(current_ship);
     //alert('script loaded!');
     $('.tic-box').click(function(){
         var field = new Field($(this).data("x"),$(this).data("y"));
         console.log('Dodawanie pola '+ field.position() + " do statku " + current_ship.getSize()+"-masztowego");
         current_ship.addField(field);
+        currentShipDraw(current_ship);
     });
     $('.ship-picker').click(function(){
         var size = $(this).data("size");
@@ -129,10 +208,12 @@ $(function(){
             console.log("Well done! " + response.message);
             console.log("Board:");
             /*console.log(response.board.fields);*/
+
             Swal.fire(response.message).then((result) => { if(result.isConfirmed) {
                 if (response.status === 'fail') {
-                }
                     location.reload();
+                }
+                    window.location.replace(baseUrl + '/table/' + response.board.table.id);
                 }
             });
         }).fail(function(response){

@@ -7,6 +7,7 @@ use App\Events\PlayerMoved;
 use App\Exceptions\InvalidShipException;
 use App\Models\board;
 use App\Models\Table;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -87,7 +88,7 @@ class BoardController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\board  $board
-     * @return JsonResponse
+     *
      */
     public function update(Request $request, board $board)
     {
@@ -161,9 +162,10 @@ class BoardController extends Controller
             $boardToUpdate->save();
             $boardToUpdate->table->reportReady();
             DB::commit();
+
             return response()->json([
                 'status' => 'success',
-                'message' => 'pomyślnie zaktualizowano planszę',
+                'message' => 'pomyślnie utworzono planszę',
                 'board' => $boardToUpdate
             ]);
         } catch(\Exception $e){
@@ -182,6 +184,12 @@ class BoardController extends Controller
 
 
     public function shot(Board $board, string $column, int $row){
+        if($board['table']->isCompleted()){
+            return response()->json([
+                'status' => 'fail',
+                'message' => __('errors.board_completed')
+            ]);
+        }
         if(Auth::id()!==$board->table->current_player){
             return response()->json([
                 'status' => 'fail',
@@ -194,6 +202,7 @@ class BoardController extends Controller
                 'message' => __('errors.your_board')
             ]);
         }
+
         try{
             $status = 'fail';
             $result = 'none';
@@ -205,13 +214,15 @@ class BoardController extends Controller
             } else if($cell=="@"){
                 $board->setCell($column,$row,"#");
                 $message = "Trafiony!";
-                //$neighbours = $board->countFieldNeighbours($column,$row);
-
-                //error_log("Pole ".$column."".$row." ma ".$neighbours." sąsiadów...");
-
-                $status = 'success';
                 $result = 'hit';
-
+                if($board->checkIfSunk($column,$row)){
+                    $message.= " ZATOPIONY";
+                    $result = 'sunk';
+                    if($board->checkIfCompleted()){
+                        $message.= " ZWYCIĘŹA ".User::find(Auth::id())->name;
+                    }
+                }
+                $status = 'success';
             } else {
                 $board->setCell($column,$row,"*");
                 $status = 'success';
@@ -220,7 +231,6 @@ class BoardController extends Controller
                 $board->table->switchPlayers();
             }
 
-            //$table = Table::find($board->table->id);
 
             event(new PlayerMoved($message,$board,$column, $row, $result));
 

@@ -22,8 +22,6 @@ $(function(){
 window.Echo.channel('game.' + tableId)
     .listen('PlayerMoved', function(response){
         console.log("Echo engaged!");
-        console.log(response.table);
-        console.log(response.shot_field);
         updateCurrentPlayer(response.table.current_player);
         updateField(response.shot_field);
     });
@@ -41,11 +39,15 @@ function updateCurrentPlayer(currentPlayer){
 }
 
 function updateField(shot_field){
+
     var field = $('#'+shot_field.board+'_'+shot_field.x+'_'+shot_field.y);
     if(shot_field.result === "hit"){
         field.html('<img id="theImg" src="'+redCrossImg+'" style="width:100%; height: 100%; object-fit: cover;" />');
     } else if(shot_field.result === "missed"){
         field.html('<img id="theImg" src="'+missedImg+'" style="width:100%; height: 100%; object-fit: cover;" />');
+
+    } else if(shot_field.result === 'sunk'){
+        location.reload();
     }
 }
 

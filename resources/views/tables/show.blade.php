@@ -110,7 +110,7 @@
                         <div>
                         <div class="single-box box-label">{{$body_row}}</div>
                         @for($body_col = "A" ; $body_col <= "J" ; $body_col++)
-                            <div id="1_{{$body_col}}_{{$body_row}}" data-x="{{$body_col}}" data-y="{{$body_row}}" data-board_id="{{$table->board1()->id}}" class="single-box">
+                            <div id="{{$table->board1()->id}}_{{$body_col}}_{{$body_row}}" data-x="{{$body_col}}" data-y="{{$body_row}}" data-board_id="{{$table->board1()->id}}" class="single-box">
                                 @if(json_decode($table->board1()->fieldss,true)[$body_col][$body_row]=="@")
                                     <img id="theImg" src="{{asset('/storage/img/cross-green.png')}}" style="width:100%; height: 100%; object-fit: cover;" />
                                 @elseif(json_decode($table->board1()->fieldss,true)[$body_col][$body_row]=="#")
@@ -136,7 +136,7 @@
                         <div>
                             <div class="single-box box-label">{{$body_row}}</div>
                             @for($body_col = "A" ; $body_col <= "J" ; $body_col++)
-                                <div id="2_{{$body_col}}_{{$body_row}}" data-x="{{$body_col}}" data-y="{{$body_row}}" data-board_id="{{$table->board2()->id}}" class="single-box">
+                                <div id="{{$table->board2()->id}}_{{$body_col}}_{{$body_row}}" data-x="{{$body_col}}" data-y="{{$body_row}}" data-board_id="{{$table->board2()->id}}" class="single-box">
                                     @if(json_decode($table->board2()->fieldss,true)[$body_col][$body_row]=="@")
                                         <img id="theImg" src="{{asset('/storage/img/cross-green.png')}}" style="width:100%; height: 100%; object-fit: cover;" />
                                     @elseif(json_decode($table->board2()->fieldss,true)[$body_col][$body_row]=="#")

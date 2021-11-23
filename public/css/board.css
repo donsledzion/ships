@@ -25,4 +25,5 @@
 }
 .tic-box:hover{
     background: #20948B;
+    cursor: pointer;
 }
