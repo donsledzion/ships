@@ -30,8 +30,8 @@ Route::get('/user/{id}',[UserController::class,'show'])->name('user.show')->midd
 Route::post('/board/{board}/shot/{string}/{int}',[BoardController::class,'shot'])->middleware('auth');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/error/{string?}',function($string=""){
+/*Route::get('/error/{string?}',function($string=""){
     return view('error',[
         'message' => $string
     ]);
-});
+});*/
