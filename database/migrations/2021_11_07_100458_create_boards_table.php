@@ -142,7 +142,7 @@ class CreateBoardsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onDelete('cascade');
             $table->foreignId('table_id')->constrained()->onDelete('cascade')->onDelete('cascade');
-            $table->json('fields')->default($freshFields);
+            $table->json('fields')->default('');
             $table->boolean('initialized')->default(false);
             $table->timestamps();
         });
