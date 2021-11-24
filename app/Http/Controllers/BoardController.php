@@ -184,26 +184,27 @@ class BoardController extends Controller
 
 
     public function shot(Board $board, string $column, int $row){
-        if($board['table']->isCompleted()){
-            return response()->json([
-                'status' => 'fail',
-                'message' => __('errors.board_completed')
-            ]);
-        }
-        if(Auth::id()!==$board->table->current_player){
-            return response()->json([
-                'status' => 'fail',
-                'message' => __('errors.not_your_turn')
-            ]);
-        }
-        if(Auth::id()==$board->user->id){
-            return response()->json([
-                'status' => 'fail',
-                'message' => __('errors.your_board')
-            ]);
-        }
-
         try{
+            if($board['table']->isCompleted()){
+                return response()->json([
+                    'status' => 'fail',
+                    'message' => __('errors.board_completed')
+                ]);
+            }
+            if(Auth::id()!==$board->table->current_player){
+                return response()->json([
+                    'status' => 'fail',
+                    'message' => __('errors.not_your_turn')
+                ]);
+            }
+            if(Auth::id()==$board->user->id){
+                return response()->json([
+                    'status' => 'fail',
+                    'message' => __('errors.your_board')
+                ]);
+            }
+
+
             $status = 'fail';
             $result = 'none';
             $message = '';
