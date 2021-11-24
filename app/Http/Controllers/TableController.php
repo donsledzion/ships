@@ -55,11 +55,11 @@ class TableController extends Controller
             $table = Table::create();
             $table->boards()->create([
                 'user_id' => Auth::id(),
-                'fields' => Board::freshField()
+                /*'fields' => Board::freshField()*/
             ]);
             $table->boards()->create([
                 'user_id' => $request->opponent,
-                'fields' => Board::freshField()
+                /*'fields' => Board::freshField()*/
             ]);
             /*return response()->json([
                 'status' => 'success',
@@ -74,7 +74,7 @@ class TableController extends Controller
                 'message' => __('statuses.create.table.fail'),
                 'error' => $e->getMessage()
             ]);*/
-            return redirect('/error/'.__('statuses.create.table.fail'));
+            return redirect('/error/'.__('statuses.create.table.fail').$e->getMessage());
         }
 
     }
