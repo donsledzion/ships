@@ -1,51 +1,158 @@
+
+
+let fields;
+let four_master;
+let three_master;
+let two_master;
+let one_master;
+let current_ship;
+let nextFields = [] ;
+let defaultBoxBg = '#20c997';
+let highlightBoxBg = '#07faea';
+let lockedBoxBg = '#b8d1bb';
+let lastShip;
+
+
 class Field {
     constructor(_x, _y) {
         this.x = _x;
         this.y = _y;
     }
     getX(){return this.x;}
+    getXasNumber(){
+        return (+this.x.charCodeAt(0)-64);
+    }
     getY(){return this.y;}
 
     position(){
         return this.x+this.y;
     }
 
+
     inject(see){
         var X = String.fromCharCode(this.x+64);
         var Y =this.y;
         see.X.Y = "S";
     }
-}
 
-class Ship {
-    constructor(size) {
-        this.size = size;
-        this.fields = [];
-        var img;
-        switch(size){
-            case 1:
-                img = 'mini-one-master.png' ;
-                break;
-            case 2:
-                img = 'mini-two-master.png' ;
-                break;
-            case 3:
-                img = 'mini-three-master.png' ;
-                break;
-            case 4:
-                img = 'mini-four-master.png' ;
-                break;
-            default:
-                img = 'mini-one-master.png' ;
+    markAsCompleted(field){
+        $('#'+field.position()+'')
+            .attr('data-status','border');
+        var X = this.getXasNumber();
+        var Y = this.getY();
+        for(let i = -1 ; i <= 1 ; i++){
+            for(let j = -1 ; j <= 1 ; j++){
+                if(isFieldOnBoard(X+j,Y+i)){
+                    let column = String.fromCharCode(+X+j+64);
+                    let row = Y+i;
+                    let fieldToSwitchOff = $('#'+column+row);
+                    if(fieldToSwitchOff.attr('data-status')==='free'){
+                        fieldToSwitchOff
+                            .attr('data-status','border').css('background',lockedBoxBg);
+                    }
+                }
+            }
         }
-        this.avatar = img;
+
 
     }
 
+    pointNeighbours(){
+        let neighbours = [] ;
+        //top
+        if(this.getY()>1){
+            neighbours.push(new Field(this.getX(), this.getY()-1));
+            console.log('Dodaję sąsiada: '+neighbours[neighbours.length-1].position());
+        }
+        //bottom
+        if(this.getY()<10){
+            neighbours.push(new Field(this.getX(), this.getY()+1));
+            console.log('Dodaję sąsiada: '+neighbours[neighbours.length-1].position());
+        }
+        //left
+        if(this.getXasNumber()>1){
+            neighbours.push(new Field(String.fromCharCode(this.getXasNumber()+63), this.getY()));
+            console.log('Dodaję sąsiada: '+neighbours[neighbours.length-1].position());
+        }
+        //right
+        if(this.getXasNumber()<10){
+            neighbours.push(new Field(String.fromCharCode(this.getXasNumber()+65), this.getY()));
+            console.log('Dodaję sąsiada: '+neighbours[neighbours.length-1].position());
+        }
+        return neighbours;
+    }
+
+    getStatus(){
+
+        return $('#'+this.x+this.y).attr("data-status");
+    }
+
+    hintNeighbours(){
+        let neighbours = this.pointNeighbours();
+        $.each(neighbours, function(key, value){
+            if(value.getStatus() === "free"){
+                console.log("Somsiady: "+value.position());
+                $('#'+value.position()).attr("data-hinted","true").css('background',highlightBoxBg);
+                nextFields.push.value;
+                /*value.hintField();*/
+            }
+        })
+    }
+}
+
+
+class Ship {
+    constructor(size, index) {
+        this.size = size;
+        this.index = index;
+        this.fields = [];
+        this.completed = false;
+        var img;
+        var name;
+        var sequences;
+        switch(size){
+            case 1:
+                img = 'mini-one-master.png' ;
+                name = nameOneMaster;
+                sequences = 'sequences-one-master.png';
+                break;
+            case 2:
+                img = 'mini-two-master.png' ;
+                name = nameTwoMaster;
+                sequences = 'sequences-two-master.png';
+                break;
+            case 3:
+                img = 'mini-three-master.png' ;
+                name = nameThreeMaster;
+                sequences = 'sequences-three-master.png';
+                break;
+            case 4:
+                img = 'mini-four-master.png' ;
+                name = nameFourMaster;
+                sequences = 'sequences-four-master.png';
+                break;
+            default:
+                img = 'mini-one-master.png' ;
+                name = nameOneMaster;
+                sequences = 'sequences-one-master.png';
+        }
+        this.name = name;
+        this.avatar = img;
+        this.sequences = sequences;
+    }
+
     addField(field){
-        if((this.fields.length < this.size)) { // need to insert some validation rules
+        if(this.fields.length < this.size) { // need to insert some validation rules
             this.fields.push(field);
-            $('#'+field.position()+'').append('<img id="theImg" src="'+baseUrl+'/storage/img/cross-green.png" style="width:100%; height: 100%; object-fit: cover;" />');
+            $('#'+field.position()+'')
+                .html('<img id="theImg" src="'+baseUrl+'/storage/img/cross-green.png" style="width:100%; height: 100%; object-fit: cover;" />')
+                .attr('data-status','ship')
+                .attr('data-hinted','false')
+                .css('background',defaultBoxBg);
+            if(this.fields.length == this.size){
+                this.setCompleted();
+                this.markAsCompleted();
+            }
         } else {
             alert('ZIOMUŚ! Nie można już więcej pól dodać do tego statku!');
         }
@@ -55,8 +162,20 @@ class Ship {
         return this.size;
     }
 
+    getIndex(){
+        return this.index;
+    }
+
     getAvatar(){
         return this.avatar;
+    }
+
+    getSequences(){
+        return this.sequences;
+    }
+
+    getName(){
+        return this.name;
     }
 
     launch(see){
@@ -64,9 +183,54 @@ class Ship {
             value.inject(see);
         })
     }
+
+    setCompleted(){
+        console.log("Ustawiam statek jako skończony!");
+        this.completed = true;
+    }
+
+    isCompleted(){
+        if(this.completed){
+            console.log("Statek jest skończony.");
+        }
+        return this.completed;
+    }
+
+    markAsCompleted(){
+        $.each(this.fields,function(key,value){
+            value.markAsCompleted(value);
+        });
+    }
+
+    getFields(){
+        return this.fields;
+    }
 }
 
-let fields;
+function isFieldOnBoard(x, y){
+    if(x<1){
+        return false;
+    }
+    if(x>10){
+        return false;
+    }
+    if(y<1){
+        return false;
+    }
+    if(y>10){
+        return false;
+    }
+    return true;
+}
+
+function clearHinted(){
+    for(let col = 1 ; col <= 10 ; col++){
+        for(let row = 1 ; row <= 10 ; row++){
+            let column = String.fromCharCode(col+64);
+            $('#'+column+row).attr("data-hinted","false");
+        }
+    }
+}
 
 function readBoard(board_id){
     $.ajax({
@@ -83,24 +247,9 @@ function readBoard(board_id){
 }
 
 function currentShipDraw(current_ship){
-    var ship;
-    switch (current_ship.getSize()){
-        case 4:
-            ship = 'Czteromasztowiec';
-            break;
-        case 3:
-            ship = 'Trzymasztowiec';
-            break;
-        case 2:
-            ship = 'Dwumasztowiec';
-            break;
-        case 1:
-            ship = 'Jednomasztowiec';
-            break;
-        default:
-            ship = 'Coś się posypało';
-    }
-    $('#currently-creating').html('<img id="theImg" src="'+baseAsset+'/'+current_ship.getAvatar()+'" style="width:100%; height: 100%; object-fit: cover;" />');
+    $('#currently-creating').html('<div class="h2 center">'+current_ship.getName()+'</div><img id="theImg" src="'+baseAsset+'/'+current_ship.getAvatar()+'" style="width:100%; height: 100%; object-fit: cover;" />');
+    $('#available-sequences').html('<div class="h3 center">'+availableSequences+'</div><img id="theImg" src="'+baseAsset+'/'+current_ship.getSequences()+'" style="margin-left: auto; margin-right: auto;height: 100%; object-fit: cover;" />');
+
 }
 
 function startPopup(){
@@ -134,44 +283,74 @@ function startPopup(){
     })
 }
 
+function pickNextShip(current_ship){
+    return getShipByIndex(current_ship.getIndex()+1);
+}
+
+function getShipByIndex(index){
+    switch(index){
+        case 1:
+            return four_master;
+        case 2:
+            return three_master[0];
+        case 3:
+            return three_master[1];
+        case 4:
+            return two_master[0];
+        case 5:
+            return two_master[1];
+        case 6:
+            return two_master[2];
+        case 7:
+            return one_master[0];
+        case 8:
+            return one_master[1];
+        case 9:
+            return one_master[2];
+        case 10:
+            return one_master[3];
+        default:
+            return null;
+    }
+}
 
 $(function(){
+    for(let col = 1 ; col <= 10 ; col++){
+        console.log(String.fromCharCode(col+64));
+    }
     startPopup();
     readBoard($('#save-board').data("id"))
-    let four_master = new Ship(+4) ;
-    let three_master = [new Ship(+3), new Ship(+3)];
-    let two_master = [new Ship(+2),new Ship(+2),new Ship(+2)];
-    let one_master = [new Ship(+1),new Ship(+1),new Ship(+1),new Ship(+1)];
-    let current_ship = four_master;
+    four_master = new Ship(+4,+1) ;
+    three_master = [new Ship(+3,+2), new Ship(+3,+3)];
+    two_master = [new Ship(+2,+4),new Ship(+2,+5),new Ship(+2,+6)];
+    one_master = [new Ship(+1,+7),new Ship(+1,+8),new Ship(+1,+9),new Ship(+1,+10)];
+    current_ship = four_master;
     currentShipDraw(current_ship);
-    //alert('script loaded!');
     $('.tic-box').click(function(){
         var field = new Field($(this).data("x"),$(this).data("y"));
-        console.log('Dodawanie pola '+ field.position() + " do statku " + current_ship.getSize()+"-masztowego");
-        current_ship.addField(field);
-        currentShipDraw(current_ship);
-    });
-    $('.ship-picker').click(function(){
-        var size = $(this).data("size");
-        var order = $(this).data("order");
-        switch (size){
-            case 4:
-                current_ship = four_master;
-                break;
-            case 3:
-                current_ship = three_master[order-1];
-                break;
-            case 2:
-                current_ship = two_master[order-1];
-                break;
-            case 1:
-                current_ship = one_master[order-1];
-                break;
-            default:
-                alert("Coś nie tak :/");
+        if(current_ship.getFields().length > 0){
+            if($(this).attr("data-hinted")==="true") {
+                current_ship.addField(field);
+                field.hintNeighbours();
+            }
+
+        } else if(field.getStatus()==="free") {
+            current_ship.addField(field);
+            field.hintNeighbours();
+        } else {
+            Swal.fire("To pole nie jest dostępne! (nie kombinuj)");
         }
-        console.log('Wybrano statek '+size+"-masztowy nr "+ order);
+        if (current_ship.isCompleted()) {
+            current_ship = pickNextShip(current_ship);
+            clearHinted();
+            if (current_ship) {
+                currentShipDraw(current_ship);
+            } else {
+                Swal.fire("Wygląda na to, że plansza jest gotowa. Wciśnij przycisk 'ZAPISZ' aby przejsc do stołu i zacząć rozgrywkę.");
+            }
+        }
     });
+
 
     $('#save-board').click(function(){
         var board_id = $(this).data("id");

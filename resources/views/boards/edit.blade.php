@@ -5,56 +5,45 @@
 @endsection
 
 @section('content')
+    <style>
 
+    </style>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-sm-2 ads">  </div>
             <div class="col-12 col-sm-6 content">
                 <div class="container-fluid tic-container">
-                    <div class="row tic-row">
-                        <div class="col-1 tic-box bg-primary">  </div>
-                        @for($col = "A"; $col <= "J" ; $col++)
-                            <div class="col-1 tic-box bg-primary">{{$col}}</div>
-                        @endfor
-                    </div>
-                   @for($row = 1 ; $row <= 10 ; $row++)
-                        <div class="row tic-row">
-                            <div class="col-1 tic-box bg-primary">{{$row}}</div>
-                            @for($col = "A"; $col <= "J" ; $col++)
-                                <div id="{{$col."".$row}}" data-x="{{$col}}" data-y="{{$row}}" class="col-1 tic-box">
-                                    @if(json_decode($board->fields,true)[$col][$row]=="@")
-                                        <img id="theImg" src="{{asset('/storage/img/cross-green.png')}}" style="width:100%; height: 100%; object-fit: cover;" />
-                                    @endif
-                                    {{--{{json_decode($board->fields,true)[$col][$row]}}--}}
-                                </div>
+                    <div id="board1" class="board">
+                        {{--<div class="player-label">{{$table->board1()->user->name}}</div>--}}
+                        <div>
+                            <div class="tic-box box-label"></div>
+                            @for($header_col = "A" ; $header_col <= "J" ; $header_col++)
+                                <div class="tic-box box-label">{{$header_col}}</div>
                             @endfor
                         </div>
-                    @endfor
+                        @for($body_row = 1 ; $body_row <= 10 ; $body_row++)
+                            <div>
+                                <div class="tic-box box-label">{{$body_row}}</div>
+                                @for($body_col = "A" ; $body_col <= "J" ; $body_col++)
+                                    <div id="{{$body_col}}{{$body_row}}" data-x="{{$body_col}}" data-y="{{$body_row}}" data-board_id="{{$board->id}}" data-status="free" data-hinted="false" class="tic-box">
+                                    </div>
+                                @endfor
+                            </div>
+                        @endfor
+                    </div>
 
 
                 </div>
             </div>
             <div class="col-12 col-sm-2 tic-panel">
-                <span class="badge">Aktualnie tworzony:</span>
+                <span class="h4 text-white">Aktualnie tworzony:</span>
                 <div id="currently-creating">
 
                 </div>
-                Stwóz swoją planszę aby rozpocząć grę:
-                <br/><br/><b>Czteromasztowiec:</b>
-                <br/><b><button data-size="4" data-order="1" class="ship-picker btn btn-success border-1 border-warning my-1">1) </button></b>
-                <br/><b>Trójmasztowce:</b>
-                <br/><b><button data-size="3" data-order="1" class="ship-picker btn btn-success border-1 border-warning my-1">1) </button></b>
-                <br/><b><button data-size="3" data-order="2" class="ship-picker btn btn-success border-1 border-warning my-1">2) </button></b>
-                <br/><b>Dwumasztowce:</b>
-                <br/><b><button data-size="2" data-order="1" class="ship-picker btn btn-success border-1 border-warning my-1">1) </button></b>
-                <br/><b><button data-size="2" data-order="2" class="ship-picker btn btn-success border-1 border-warning my-1">2) </button></b>
-                <br/><b><button data-size="2" data-order="3" class="ship-picker btn btn-success border-1 border-warning my-1">3) </button></b>
-                <br/><b>Jednomasztowce:</b>
-                <br/><b><button data-size="1" data-order="1" class="ship-picker btn btn-success border-1 border-warning my-1">1) </button></b>
-                <br/><b><button data-size="1" data-order="2" class="ship-picker btn btn-success border-1 border-warning my-1">2) </button></b>
-                <br/><b><button data-size="1" data-order="3" class="ship-picker btn btn-success border-1 border-warning my-1">3) </button></b>
-                <br/><b><button data-size="1" data-order="4" class="ship-picker btn btn-success border-1 border-warning my-1">4) </button></b>
-                <br/>
+                <div id="available-sequences">
+
+                </div>
+
                 <button id="save-board" data-id="{{$board->id}}" class="btn btn-secondary">ZAPISZ</button>
             </div>
 
@@ -65,6 +54,11 @@
     <script type="text/javascript">
         const baseUrl = '{{url('')}}' ;
         const baseAsset ='{{asset('/storage/img/')}}';
+        const nameOneMaster = '{{__('ships.name.one_master')}}';
+        const nameTwoMaster = '{{__('ships.name.two_master')}}';
+        const nameThreeMaster = '{{__('ships.name.three_master')}}';
+        const nameFourMaster = '{{__('ships.name.four_master')}}';
+        const availableSequences = '{{__('ships.available_sequences')}}';
     </script>
 @section('js-files')
     <script src="{{ asset('js/edit-board.js') }}" ></script>

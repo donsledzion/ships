@@ -12,7 +12,7 @@
                 height: 650px;
                 background-color: #98dfb6;
                 border: 1px solid black;
-                border-radius: 5px;
+                border-radius: 50px;
                 margin-left: auto;
                 margin-right: auto;
             }
@@ -25,6 +25,7 @@
                 margin-right:auto;
                 background-color: #0f5132;
                 border: 1px solid red;
+                border-radius: 40px;
             }
 
             .board {
@@ -34,7 +35,7 @@
                 margin-left:30px;
                 margin-right:auto;
                 border: 1px solid black;
-                border-radius: 2px;
+                border-radius: 20px;
                 background-color: #c7eed8;
                 float:left;
                 padding:25px;
@@ -160,6 +161,10 @@
         const redCrossImg = '{{asset('/storage/img/cross-red.png')}}';
         const greenCrossImg = '{{asset('/storage/img/cross-green.png')}}';
         const missedImg = '{{asset('/storage/img/missed.png')}}';
+        const nameOneMaster = '{{__('ships.name.one_master')}}';
+        const nameTwoMaster = '{{__('ships.name.two_master')}}';
+        const nameThreeMaster = '{{__('ships.name.three_master')}}';
+        const nameFourMaster = '{{__('ships.name.four_master')}}';
     </script>
     @section('js-files')
         <script src="{{ asset('js/game-board.js') }}"></script>
