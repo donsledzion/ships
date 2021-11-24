@@ -16,9 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/',[\App\Http\Controllers\HomeController::class,'index'] );
 
 Auth::routes();
 
@@ -29,7 +27,7 @@ Route::get('/table/{table}/lobby',[TableController::class,'lobby'])->name('table
 Route::resource('board', BoardController::class)->middleware('auth');
 Route::get('/user/{id}',[UserController::class,'show'])->name('user.show')->middleware('auth');
 
-Route::post('/board/{Board}/shot/{string}/{int}',[BoardController::class,'shot'])->middleware('auth');
+Route::post('/board/{board}/shot/{string}/{int}',[BoardController::class,'shot'])->middleware('auth');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/error/{string?}',function($string=""){
