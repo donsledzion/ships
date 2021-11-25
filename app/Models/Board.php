@@ -16,10 +16,11 @@ class Board extends Model
         'user_id',
         'table_id',
         'initialized',
+        'fields',
     ] ;
 
     protected $hidden = [
-        'fields',
+
     ];
 
     protected $casts = [
