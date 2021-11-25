@@ -9,45 +9,45 @@
         <ul class="navbar-nav ml-auto topnav">
             @guest
                 @if (Route::has('login'))
-                    <li class="nav-item">
+                    <li class="nav-item my-1 mx-2">
                         <a class="nav-link btn btn-success text-white" type="button" href="{{route('login')}}" >{{__('buttons.login')}}</a>
                     </li>
 
                 @endif
 
                 @if (Route::has('register'))
-                    <li class="nav-item">
+                    <li class="nav-item my-1 mx-2">
                         <a class="nav-link btn btn-info text-white" type="button"href="{{route('register')}}">{{__('buttons.register')}}</a>
                     </li>
                 @endif
             @else
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ucfirst(Auth::user()->name)}}
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{route('table.create')}}">{{__('buttons.new_game')}}</a>
-                        <a class="dropdown-item" href="#">{{__('buttons.account')}}</a>
-                        <a class="dropdown-item" href="{{route('table.index')}}">{{__('buttons.my_games')}}</a>
-                        <a class="dropdown-item" href="#">{{__('buttons.my_friends')}}</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="nav-link btn btn-danger text-white" type="button"
-                           href="{{route('logout')}}" data-toggle="modal" data-target="#myModal"
-                           onclick="event.preventDefault();
+                <li class="nav-item my-1 mx-2">
+                    <a class="nav-link btn btn-success text-black font-weight-bold" type="button" href="{{route('table.create')}}">{{__('buttons.new_game')}}</a>
+                </li>
+
+                <li class="nav-item my-1 mx-2">
+                    <a class="nav-link btn btn-info text-black font-weight-bold" type="button" href="{{route('table.index')}}">{{__('buttons.my_games')}}</a>
+                </li>
+
+                <li class="nav-item my-1 mx-2">
+                    <a class="nav-link btn btn-warning text-black font-weight-bold" type="button" href="#">{{__('buttons.my_friends')}}</a>
+                </li>
+
+                <li class="nav-item my-1 mx-2">
+                    <a class="nav-link btn btn-secondary text-black font-weight-bold" type="button" href="#">{{__('buttons.account')}}</a>
+                </li>
+
+                <li class="nav-item my-1 mx-2">
+                    <a class="nav-link btn btn-danger text-white" type="button"
+                       href="{{route('logout')}}" data-toggle="modal" data-target="#myModal"
+                       onclick="event.preventDefault();
                            document.getElementById('logout-form').submit();">{{__('buttons.logout')}}</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </li>
 
             @endguest
-            <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
-            </li>
         </ul>
     </div>
 
