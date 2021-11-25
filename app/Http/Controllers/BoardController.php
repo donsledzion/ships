@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Dtos\Battlefield\ShipDto;
 use App\Events\PlayerMoved;
 use App\Exceptions\InvalidShipException;
-use App\Models\board;
+use App\Models\Board;
 use App\Models\Table;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
