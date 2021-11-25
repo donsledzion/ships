@@ -238,7 +238,6 @@ function readBoard(board_id){
         method: "get",
     }).done(function(response){
         console.log(response);
-        console.log(response.fields.A[1]);
         fields = response.fields;
     }).fail(function(response){
         console.log('fail!');
@@ -370,7 +369,6 @@ $(function(){
         });
 
         console.log('zapisywanie planszy nr '+board_id);
-        fields.A[1] = "X";
         $.ajax({
             method: 'put',
             url: baseUrl + '/board/'+board_id,
