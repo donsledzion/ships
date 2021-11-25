@@ -51,10 +51,10 @@ class BoardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\board  $board
+     * @param  \App\Models\Board  $board
      * @return JsonResponse
      */
-    public function show(board $board):JsonResponse
+    public function show(Board $board):JsonResponse
     {
         return response()->json([
             'status' => 'success',
@@ -65,7 +65,7 @@ class BoardController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\board  $board
+     * @param  \App\Models\Board  $board
      * @return View
      */
     public function edit(board $board)
@@ -87,7 +87,7 @@ class BoardController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\board  $board
+     * @param  \App\Models\Board  $board
      *
      */
     public function update(Request $request, board $board)
@@ -252,7 +252,7 @@ class BoardController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\board  $board
+     * @param  \App\Models\Board  $board
      * @return \Illuminate\Http\Response
      */
     public function destroy(board $board)
