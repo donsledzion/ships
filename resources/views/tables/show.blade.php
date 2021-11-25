@@ -6,6 +6,74 @@
 
 @section('content')
     <style>
+        @media (min-width: 380px) {
+            .table-container {
+                width: 370px;
+                height: 850px;
+                background-color: #98dfb6;
+                border: 1px solid black;
+                border-radius: 1px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .board-container {
+                width: 360px;
+                height: 840px;
+                margin-top: 2px;
+                margin-left: auto;
+                margin-right:auto;
+                background-color: #0f5132;
+                border: 1px solid red;
+                border-radius: 1px;
+            }
+
+            .board {
+                width: 355px;
+                height: 410px;
+                margin-top:2px;
+                margin-left:auto;
+                margin-right:auto;
+                border: 1px solid black;
+                border-radius: 1px;
+                background-color: #c7eed8;
+                float:left;
+                padding:1px;
+            }
+
+            .single-box{
+                width: 32px;
+                height: 32px;
+                border:1px solid black;
+
+                background-color: #20c997;
+                display: table-cell;
+                border-collapse: collapse;
+                overflow: hidden;
+                text-align: center;
+                vertical-align: middle;
+
+                font-size: 1.0rem;
+            }
+
+            .player-label{
+                text-align: center;
+                font-size: 22px;
+                font-weight: bold;
+                align-self: center;
+                display: inline-block;
+                padding-top:10px;
+                width: 100%;
+            }
+
+            .current-player{
+                padding:5px 20px 5px 20px;
+                background-color: #0dcaf0;
+                border: 3px dotted red;
+                border-radius: 10px
+            }
+
+        }
         @media (min-width: 1200px) {
             .table-container {
                 width: 1150px;
@@ -87,20 +155,10 @@
 
     <div class="table-container">
         <div class="board-container">
-            <div>
-                <div class="player-label">
-                    <span id="player_1" data-id="{{$table->board1()->user->id}}" @if($table->current_player==$table->board1()->user->id) class="current-player"@endif>
+                <div id="board1" class="board">
+                    <span id="player_1" class="player-label" data-id="{{$table->board1()->user->id}}" @if($table->current_player==$table->board1()->user->id) class="current-player"@endif>
                         {{$table->board1()->user->name}}
                     </span>
-                </div>
-                <div class="player-label">
-                    <span id="player_2" data-id="{{$table->board2()->user->id}}"  @if($table->current_player==$table->board2()->user->id) class="current-player"@endif>
-                        {{$table->board2()->user->name}}
-                    </span>
-                </div>
-            </div>
-                <div id="board1" class="board">
-                    {{--<div class="player-label">{{$table->board1()->user->name}}</div>--}}
                     <div>
                     <div class="single-box box-label"></div>
                     @for($header_col = "A" ; $header_col <= "J" ; $header_col++)
@@ -126,7 +184,9 @@
                 </div>
 
                 <div id="board2" class="board">
-                    {{--<div class="player-label">{{$table->board2()->user->name}}</div>--}}
+                    <span id="player_2" class="player-label" data-id="{{$table->board2()->user->id}}"  @if($table->current_player==$table->board2()->user->id) class="current-player"@endif>
+                        {{$table->board2()->user->name}}
+                    </span>
                     <div>
                         <div class="single-box box-label"></div>
                         @for($header_col = "A" ; $header_col <= "J" ; $header_col++)
