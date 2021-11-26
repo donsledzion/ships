@@ -63,6 +63,7 @@
                 align-self: center;
                 display: inline-block;
                 padding-top:10px;
+                margin-bottom:10px;
                 width: 100%;
             }
 
@@ -98,7 +99,7 @@
 
             .board {
                 width: 500px;
-                height: 520px;
+                height: 570px;
                 margin-top:10px;
                 margin-left:30px;
                 margin-right:auto;
@@ -132,6 +133,7 @@
                 display: inline-block;
                 padding-top:10px;
                 width: 49%;
+                margin-bottom:10px;
             }
 
             .current-player{
@@ -156,9 +158,12 @@
     <div class="table-container">
         <div class="board-container">
                 <div id="board1" class="board">
-                    <span id="player_1" class="player-label" data-id="{{$table->board1()->user->id}}" @if($table->current_player==$table->board1()->user->id) class="current-player"@endif>
-                        {{$table->board1()->user->name}}
-                    </span>
+                    <div class="player-label">
+                        <span id="player_1" data-id="{{$table->board1()->user->id}}" @if($table->current_player==$table->board1()->user->id) class="current-player"@endif>
+                            {{$table->board1()->user->name}}
+                        </span>
+                    </div>
+
                     <div>
                     <div class="single-box box-label"></div>
                     @for($header_col = "A" ; $header_col <= "J" ; $header_col++)
@@ -184,9 +189,11 @@
                 </div>
 
                 <div id="board2" class="board">
-                    <span id="player_2" class="player-label" data-id="{{$table->board2()->user->id}}"  @if($table->current_player==$table->board2()->user->id) class="current-player"@endif>
-                        {{$table->board2()->user->name}}
-                    </span>
+                    <div class="player-label">
+                        <span id="player_2" data-id="{{$table->board2()->user->id}}"  @if($table->current_player==$table->board2()->user->id) class="current-player" @endif>
+                            {{$table->board2()->user->name}}
+                        </span>
+                    </div>
                     <div>
                         <div class="single-box box-label"></div>
                         @for($header_col = "A" ; $header_col <= "J" ; $header_col++)
@@ -215,6 +222,7 @@
     </div>
 
     <script type="text/javascript">
+        const playerId = '{{Auth::id()}}';
         const baseUrl = '{{url('')}}' ;
         const baseAsset ='{{asset('/storage/img/')}}';
         const tableId = '{{$table->id}}';

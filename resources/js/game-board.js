@@ -22,11 +22,20 @@ $(function(){
 window.Echo.channel('game.' + tableId)
     .listen('PlayerMoved', function(response){
         console.log("Echo engaged!");
+        if(response.shot_field.result === "missed"){
+            console.log("missed");
+            console.log("Current player: "+ response.table.current_player);
+            console.log("PlayerId: "+ playerId);
+            if(response.table.current_player == playerId){
+                Swal.fire('Twój ruch!');
+            }
+        }
         updateCurrentPlayer(response.table.current_player);
         updateField(response.shot_field);
     });
 
 function updateCurrentPlayer(currentPlayer){
+
     var player_1 = $('#player_1');
     var player_2 = $('#player_2');
     if(player_1.data("id")===currentPlayer){
