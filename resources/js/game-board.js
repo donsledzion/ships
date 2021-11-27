@@ -23,15 +23,15 @@ window.Echo.channel('game.' + tableId)
     .listen('PlayerMoved', function(response){
         console.log("Echo engaged!");
         if(response.shot_field.result === "missed"){
-            console.log("missed");
-            console.log("Current player: "+ response.table.current_player);
-            console.log("PlayerId: "+ playerId);
             if(response.table.current_player == playerId){
                 Swal.fire('Twój ruch!');
             }
         }
         updateCurrentPlayer(response.table.current_player);
         updateField(response.shot_field);
+        if(response.table.winner === null){
+            Swal.fire('Mamy zwycięz`cę!');
+        }
     });
 
 function updateCurrentPlayer(currentPlayer){
