@@ -57,7 +57,6 @@ class User extends Authenticatable
         if($this->last_activity){
             $now = Carbon::createFromFormat('Y-m-d H:s:i',now());
             $last_seen = Carbon::createFromFormat('Y-m-d H:s:i',$this->last_activity);
-            /*$last_seen = $this->last_activity;*/
             $difference = $now->diffInMinutes($last_seen);
             return $difference;
         } else {

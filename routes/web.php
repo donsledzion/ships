@@ -27,7 +27,7 @@ Route::get('/table/{table}/lobby',[TableController::class,'lobby'])->name('table
 Route::resource('board', BoardController::class)->middleware(['auth','online']);
 Route::get('/user/{id}',[UserController::class,'show'])->name('user.show')->middleware(['auth','online']);
 Route::get('/users',[UserController::class,'index'])->name('user.index')->middleware(['auth','online']);
-Route::get('/user/{id}/online-status',[UserController::class,'online'])->name('user.online')->middleware(['auth','online']);
+Route::get('/user/{id}/online-status',[UserController::class,'online'])->name('user.online')->middleware(['auth']);
 
 
 Route::post('/board/{board}/shot/{string}/{int}',[BoardController::class,'shot'])->middleware(['auth','online']);
