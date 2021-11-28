@@ -29,11 +29,11 @@ class Table extends Model
         return $this->hasMany(Board::class);
     }
 
-    public function board1():Board|null
+    public function board1()
     {
         return Board::where('table_id',$this->id)->orderBy('id','asc')->first();
     }
-    public function board2():Board|null
+    public function board2()
     {
         if($this->board1()) {
             return Board::where('table_id', $this->id)->where('id', '<>', $this->board1()->id)->orderBy('id', 'desc')->first();
