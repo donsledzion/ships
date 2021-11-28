@@ -10,4 +10,5 @@ return [
     'list' => 'Lista graczy',
     'player' => 'Gracz',
     'players' => 'Gracze',
+    'creates_board' => 'tworzy planszę'
 ];

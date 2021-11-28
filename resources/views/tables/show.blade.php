@@ -76,13 +76,13 @@
 
 
             .create-button{
-                margin-top:150px;
+                margin-top:140px;
                 width:140px;
                 margin-left:100px;
                 margin-right:auto;
                 border: 3px dotted red;
                 border-radius: 10px;
-                font-size:24px;
+                font-size:20px;
             }
 
         }
@@ -156,13 +156,13 @@
 
 
             .create-button{
-                margin-top:220px;
+                margin-top:200px;
                 width:240px;
                 margin-left:100px;
                 margin-right:auto;
                 border: 4px dotted red;
                 border-radius: 20px;
-                font-size: 36px;
+                font-size: 24px;
             }
 
         }
@@ -211,6 +211,8 @@
                     @endfor
                     @elseif($table->board1()->user->id == Auth::id())
                         <button class="create-button btn btn-success"><a href="{{route('board.edit',[$table->board1()->id])}}"><b>STWÓRZ</b></a></button>
+                    @else
+                        <button class="create-button btn btn-success">><b>{{$table->board1()->user->name}} {{__('player.creates_board')}}</b>/button>
                     @endif
                 </div>
 
@@ -244,7 +246,9 @@
                         </div>
                     @endfor
                 @elseif($table->board2()->user->id == Auth::id())
-                        <button class="create-button btn btn-success"><a href="{{route('board.edit',[$table->board2()->id])}}"><b>STWÓRZ</b></a></button>
+                    <button class="create-button btn btn-success"><a href="{{route('board.edit',[$table->board2()->id])}}"><b>STWÓRZ</b></a></button>
+                @else
+                    <button class="create-button btn btn-success"><b>{{$table->board2()->user->name}} {{__('players.creates_board')}}</b></button>
                 @endif
                 </div>
             </div>
