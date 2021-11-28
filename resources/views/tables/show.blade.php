@@ -180,6 +180,7 @@
     <div class="table-container">
         <div class="board-container">
                 <div id="board1" class="board">
+                    @if($table->board1()->initialized)
                     <div class="player-label">
                         <span id="player_1" data-id="{{$table->board1()->user->id}}" @if($table->current_player==$table->board1()->user->id) class="current-player"@endif>
                             {{$table->board1()->user->name}}
@@ -208,6 +209,9 @@
                         @endfor
                         </div>
                     @endfor
+                    @elseif($table->board1()->user->id == Auth::id())
+                        <button class="create-button btn btn-success"><a href="{{route('board.edit',[$table->board1()->id])}}"><b>STWÓRZ</b></a></button>
+                    @endif
                 </div>
 
                 <div id="board2" class="board">
