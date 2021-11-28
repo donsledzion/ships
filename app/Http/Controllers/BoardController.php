@@ -220,7 +220,7 @@ class BoardController extends Controller
                     $message.= " ZATOPIONY";
                     $result = 'sunk';
                     if($board->checkIfCompleted()){
-                        $message.= " ZWYCIĘŹA ".User::find(Auth::id())->name;
+                        $message.= " ZWYCIĘŻA ".User::find(Auth::id())->name;
                     }
                 }
                 $status = 'success';

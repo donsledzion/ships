@@ -22,6 +22,7 @@ $(function(){
 window.Echo.channel('game.' + tableId)
     .listen('PlayerMoved', function(response){
         console.log("Echo engaged!");
+        console.log("Winner: " + response.table.winner);
         if(response.shot_field.result === "missed"){
             if(response.table.current_player == playerId){
                 Swal.fire('Twój ruch!');
@@ -29,8 +30,13 @@ window.Echo.channel('game.' + tableId)
         }
         updateCurrentPlayer(response.table.current_player);
         updateField(response.shot_field);
-        if(response.table.winner !== null){
-            Swal.fire('Mamy zwycięzcę!');
+        if(response.table.winner != null){
+            console.log("Mamy zwycięzcę: " + response.winner);
+            Swal.fire(response.winner + ' wygrywa!').then((result)=>{
+                if(result.isConfirmed){
+                    location.reload();
+                }
+            });
         }
     });
 

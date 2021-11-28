@@ -30,7 +30,7 @@
                 </li>
 
                 <li class="nav-item my-1 mx-2">
-                    <a class="nav-link btn btn-warning text-black font-weight-bold" type="button" href="#">{{__('buttons.my_friends')}}</a>
+                    <a class="nav-link btn btn-warning text-black font-weight-bold" type="button" href="{{route('user.index')}}">{{__('buttons.my_friends')}}</a>
                 </li>
 
                 <li class="nav-item my-1 mx-2">

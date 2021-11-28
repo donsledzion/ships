@@ -4,6 +4,7 @@ namespace App\Events;
 
 use App\Models\Board;
 use App\Models\Table;
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -51,8 +52,14 @@ class PlayerMoved implements ShouldBroadcastNow
 
     public function broadcastWith()
     {
+        $winner = null ;
+        $table = Table::find($this->table->id);
+        if($table->winner){
+            $winner = User::find($table->winner)->name;
+        }
         return [
-                'table' => $this->table,
+                'table' => $table,
+                'winner' => $winner,
                 'message' => $this->message,
                 'shot_field' => [
                     'board' => $this->board_id,

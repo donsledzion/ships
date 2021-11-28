@@ -16,19 +16,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[\App\Http\Controllers\HomeController::class,'index'] );
+Route::get('/',[\App\Http\Controllers\HomeController::class,'index'] )->middleware('online');
 
 Auth::routes();
 
-Route::resource('table',TableController::class)->middleware('auth');
-Route::get('/table/{table}/lobby',[TableController::class,'lobby'])->name('table.lobby')->middleware('auth');
+Route::resource('table',TableController::class)->middleware(['auth','online']);
+Route::get('/table/{table}/lobby',[TableController::class,'lobby'])->name('table.lobby')->middleware(['auth','online']);
 
 
-Route::resource('board', BoardController::class)->middleware('auth');
-Route::get('/user/{id}',[UserController::class,'show'])->name('user.show')->middleware('auth');
+Route::resource('board', BoardController::class)->middleware(['auth','online']);
+Route::get('/user/{id}',[UserController::class,'show'])->name('user.show')->middleware(['auth','online']);
+Route::get('/users',[UserController::class,'index'])->name('user.index')->middleware(['auth','online']);
+Route::get('/user/{id}/online-status',[UserController::class,'online'])->name('user.online')->middleware(['auth','online']);
 
-Route::post('/board/{board}/shot/{string}/{int}',[BoardController::class,'shot'])->middleware('auth');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::post('/board/{board}/shot/{string}/{int}',[BoardController::class,'shot'])->middleware(['auth','online']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('online');
 
 Route::get('/error/{string?}',[\App\Http\Controllers\ErrorController::class,'show'])->name('error');
 ;

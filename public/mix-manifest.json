@@ -3,5 +3,6 @@
     "/js/edit-board.js": "/js/edit-board.js",
     "/js/create-game.js": "/js/create-game.js",
     "/js/game-board.js": "/js/game-board.js",
+    "/js/online-check.js": "/js/online-check.js",
     "/css/app.css": "/css/app.css"
 }
