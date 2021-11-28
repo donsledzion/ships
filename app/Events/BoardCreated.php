@@ -16,7 +16,7 @@ class BoardCreated implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
 
-    public Board $board;
+    public $board;
     /**
      * Create a new event instance.
      *
