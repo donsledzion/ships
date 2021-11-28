@@ -61,7 +61,7 @@ class User extends Authenticatable
             $difference = $now->diffInMinutes($last_seen);
             return $difference;
         } else {
-            return __('players.never_seen');
+            return null;
         }
     }
 
@@ -73,12 +73,14 @@ class User extends Authenticatable
     public function onlineStatus(){
         $color = 'red';
         $interval = $this->online;
-        if($interval < 30 ){
-            $color = 'green' ;
-        } else if($interval < 60){
-            $color = 'yellow' ;
-        } else if($interval < 180){
-            $color = 'orange' ;
+        if($interval) {
+            if ($interval < 30) {
+                $color = 'green';
+            } else if ($interval < 60) {
+                $color = 'yellow';
+            } else if ($interval < 180) {
+                $color = 'orange';
+            }
         }
 
 
