@@ -41,7 +41,7 @@ class BoardCreated implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'message' => $this->board->user->name." ".__('message.player_created_board'),
+            'message' => $this->board->user->name." ".__('messages.player_created_board'),
         ];
     }
 }
