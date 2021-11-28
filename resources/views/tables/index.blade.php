@@ -21,6 +21,7 @@
             <table class="table table-striped custab">
                 <thead>
                 <span class="btn btn-primary btn-xs pull-right"><b> {{__('games.list.list')}}</b></span>
+                <span class="btn btn-success btn-xs pull-right my-2"><b><a type="button" href="{{route('table.create')}}">{{__('buttons.new_game')}}</a></b></span>
                 <tr>
                     <th>ID</th>
                     <th>{{__('players.players')}}</th>
@@ -33,11 +34,21 @@
                     <tr>
                         <td>{{$table->id}}</td>
                         <td>
-                            <div style="color: {{$table->board1()->user->onlineStatus()['color']}};"><b>{{$table->board1()->user->name}}</b></div>
-                            <div style="color: {{$table->board2()->user->onlineStatus()['color']}};"><b>{{$table->board2()->user->name}}</b></div>
+                            @if($table->board1())
+                                <div style="color: {{$table->board1()->user->onlineStatus()['color']}};"><b>{{$table->board1()->user->name}}</b></div>
+                            @else
+                                <div><b>{{__('players.free')}}</b></div>
+                            @endif
+
+                            @if($table->board2())
+                                <div style="color: {{$table->board2()->user->onlineStatus()['color']}};"><b>{{$table->board2()->user->name}}</b></div>
+                            @else
+                                <div><b>{{__('players.free')}}</b></div>
+                            @endif
+
                         </td>
                         <td>{{$table->status['status']}}</td>
-                        <td>{{$table->completed}}</td>
+                        <td>{{$table->updated_at}}</td>
                         <td class="text-center">
                             <a class='btn btn-info btn-xs' href="{{route('table.show',[$table->id])}}"><span class="glyphicon glyphicon-edit"></span><b>{{__('games.enter')}}</b></a>
                         </td>

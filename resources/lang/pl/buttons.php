@@ -9,6 +9,7 @@ return [
     'my_games' => 'Moje gry',
     'my_friends' => 'Moi znajomi',
     'account' => 'Moje konto',
+    'current_games' => 'Trwające gry',
 
 
 ];

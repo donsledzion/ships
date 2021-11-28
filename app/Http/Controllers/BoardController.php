@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Dtos\Battlefield\ShipDto;
+use App\Events\BoardCreated;
 use App\Events\PlayerMoved;
 use App\Exceptions\InvalidShipException;
 use App\Models\Board;
@@ -68,7 +69,7 @@ class BoardController extends Controller
      * @param  \App\Models\Board  $board
      * @return View
      */
-    public function edit(board $board)
+    public function edit(Board $board)
     {
         $user_id = Auth::id();
         $board_owner = $board->user;
@@ -90,7 +91,7 @@ class BoardController extends Controller
      * @param  \App\Models\Board  $board
      *
      */
-    public function update(Request $request, board $board)
+    public function update(Request $request, Board $board)
     {
         try {
             DB::beginTransaction();
@@ -162,7 +163,7 @@ class BoardController extends Controller
             $boardToUpdate->save();
             $boardToUpdate->table->reportReady();
             DB::commit();
-
+            event(new BoardCreated($boardToUpdate));
             return response()->json([
                 'status' => 'success',
                 'message' => 'pomyślnie utworzono planszę',
@@ -255,7 +256,7 @@ class BoardController extends Controller
      * @param  \App\Models\Board  $board
      * @return \Illuminate\Http\Response
      */
-    public function destroy(board $board)
+    public function destroy(Board $board)
     {
         //
     }

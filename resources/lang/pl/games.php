@@ -9,6 +9,7 @@ return [
     'enter' => 'Wejdź',
     'player' => 'Gracz',
     'actions' => 'Akcje',
+    'create' => 'Stwórz nową grę',
     'status' => [
         'status' => 'Status',
         'finished' => 'Koniec',

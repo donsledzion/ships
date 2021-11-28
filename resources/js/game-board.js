@@ -40,6 +40,17 @@ window.Echo.channel('game.' + tableId)
         }
     });
 
+
+window.Echo.channel('creating-table.' + tableId)
+    .listen('BoardCreated',function(response){
+        console.log("Board has been created!");
+        Swal.fire(response.message).then(function(result){
+            if(result.isConfirmed) {
+                location.reload();
+            }
+    });
+});
+
 function updateCurrentPlayer(currentPlayer){
 
     var player_1 = $('#player_1');

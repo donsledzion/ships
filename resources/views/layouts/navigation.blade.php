@@ -24,12 +24,16 @@
                 <li class="nav-item my-1 mx-2">
                     <span class="nav-link btn btn-light text-black font-weight-bold" type="button" ><h2>{{Auth::user()->name}}</h2></span>
                 </li>
-                <li class="nav-item my-1 mx-2">
+                {{--<li class="nav-item my-1 mx-2">
                     <a class="nav-link btn btn-success text-black font-weight-bold" type="button" href="{{route('table.create')}}">{{__('buttons.new_game')}}</a>
-                </li>
+                </li>--}}
 
                 <li class="nav-item my-1 mx-2">
                     <a class="nav-link btn btn-info text-black font-weight-bold" type="button" href="{{route('table.index')}}">{{__('buttons.my_games')}}</a>
+                </li>
+
+                <li class="nav-item my-1 mx-2">
+                    <a class="nav-link btn btn-success text-black font-weight-bold" type="button" href="{{route('table.current')}}">{{__('buttons.current_games')}}</a>
                 </li>
 
                 <li class="nav-item my-1 mx-2">

@@ -22,6 +22,8 @@ Auth::routes();
 
 Route::resource('table',TableController::class)->middleware(['auth','online']);
 Route::get('/table/{table}/lobby',[TableController::class,'lobby'])->name('table.lobby')->middleware(['auth','online']);
+Route::get('/tables-current',[TableController::class,'current'])->name('table.current')->middleware(['auth','online']);
+Route::post('/table/{table}/join',[TableController::class,'join'])->name('table.join')->middleware(['auth','online']);
 
 
 Route::resource('board', BoardController::class)->middleware(['auth','online']);

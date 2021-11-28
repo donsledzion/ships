@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Board;
 use App\Models\Table;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -33,18 +34,46 @@ class TableController extends Controller
         ]);
     }
 
+
+    public function current(){
+        $iddle_max = Carbon::now()->subMinutes(10)->format('Y-m-d H:i:s');
+        $tables = Table::where('updated_at','>=',$iddle_max)->where('winner',null)->orWhere('current_player',null)->get();
+        return view('tables.index',[
+            'tables' => $tables,
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
-     * @return View
+     * @return Redirector
      */
     public function create()
     {
-        $users = User::where('id','<>',Auth::id())->orderBy('last_activity','desc')->get();
+        $table = Table::create();
+
+        $table->boards()->create([
+            'user_id' => Auth::id(),
+            'fields' => Board::freshField(),
+        ]);
+        return redirect(route('table.show',[$table->id]));
+        /*$users = User::where('id','<>',Auth::id())->orderBy('last_activity','desc')->get();
 
         return View('tables.create',[
             'users' => $users
+        ]);*/
+    }
+
+    public function join(Table $table){
+        if(($table->board1())&&($table->board2())){
+            return redirect(route('error','chyba ci się coś pojebało'));
+        }
+        $table->boards()->create([
+            'user_id' => Auth::id(),
+            'fields' => Board::freshField(),
         ]);
+        $board = Board::where('user_id',Auth::id())->where('table_id',$table->id)->first();
+        return redirect(route('board.edit',$board->id));
     }
 
     /**

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Board;
+use Illuminate\Support\Facades\Auth;
 
 class Table extends Model
 {
@@ -28,19 +29,24 @@ class Table extends Model
         return $this->hasMany(Board::class);
     }
 
-    public function board1():Board
+    public function board1():Board|null
     {
         return Board::where('table_id',$this->id)->orderBy('id','asc')->first();
     }
-    public function board2():Board
+    public function board2():Board|null
     {
-        return Board::where('table_id',$this->id)->orderBy('id','desc')->first();
+        if($this->board1()) {
+            return Board::where('table_id', $this->id)->where('id', '<>', $this->board1()->id)->orderBy('id', 'desc')->first();
+        }
+        return null;
     }
 
     public function reportReady(){
-        if(($this->board1()->initialized)&&($this->board2()->initialized)){
-            $this->current_player = $this->board1()->user->id;
-            $this->save();
+        if($this->boards->count() > 1) {
+            if (($this->board1()->initialized) && ($this->board2()->initialized)) {
+                $this->current_player = $this->board1()->user->id;
+                $this->save();
+            }
         }
     }
 

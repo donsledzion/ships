@@ -10,5 +10,8 @@ return [
     'list' => 'Lista graczy',
     'player' => 'Gracz',
     'players' => 'Gracze',
-    'creates_board' => 'tworzy planszę'
+    'creates_board' => 'tworzy planszę',
+    'free' => 'wolne',
+    'join' => 'Dołącz',
+    'wait' => 'Oczekuje',
 ];
