@@ -1,82 +1,42 @@
 @extends('layouts.app')
 
 @section('content')
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="{{ asset('css/games-list.css') }}" rel="stylesheet">
-    <div class="col-12 align-content-center mx-auto my-xl-5">
-        <style>
-
-        </style>
-        <div class="event-schedule-area-two bg-color pad100">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-title text-center">
-                            <div class="title-text">
-                                <h2>{{__('games.list.header')}}</h2>
-                            </div>
-                            <p>
-                                {{__('games.list.current')}}
-                            </p>
-                        </div>
-                    </div>
-                    <!-- /.col end-->
-                </div>
-                <!-- row end-->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade active show" id="home" role="tabpanel">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-center" scope="col">Id</th>
-                                            <th scope="col">{{__('players.name')}}</th>
-                                            <th scope="col">{{__('players.status')}}</th>
-                                            <th scope="col">{{__('players.ranking')}}</th>
-                                            <th class="text-center" scope="col">{{__('players.actions')}}</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($users as $user)
-                                        <tr class="inner-box">
-                                            <th scope="row">
-                                                <div class="event-date">
-                                                    <span>#{{$user->id}}</span>
-                                                </div>
-                                            </th>
-                                            <td>
-                                                <div class="event-img">
-                                                    <div class="content-center">
-                                                        <h3><a href="{{route('user.show',[$user->id])}}">{{$user->name}}</a></h3>
-                                                    </div>
-                                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" />
-
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div id="status-{{$user->id}}" class="online-status" data-id="{{$user->id}}">
-                                                    {{--{{$user->onlineStatus()['message']}}--}}
-                                                    <img src="storage/img/{{$user->onlineStatus()['color']}}-dot.png" style="width:30px; height: 30px;" />
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="event-wrap">
-                                                    Ranking: {{$user->ranking }}
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                    </div>
-                    <!-- /col end-->
-                </div>
-                <!-- /row end-->
-            </div>
+    <style>
+        .custab{
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin: 5% 0;
+            box-shadow: 3px 3px 2px #ccc;
+            transition: 0.5s;
+        }
+        .custab:hover{
+            box-shadow: 3px 3px 0px transparent;
+            transition: 0.5s;
+        }
+    </style>
+    <div class="container">
+        <div class="row col-sm-6 col-md-8 col-md-offset-2 col-xl-12 custyle align-content-center">
+            <table class="table table-striped custab">
+                <thead>
+                <span class="btn btn-primary btn-xs pull-right"><b> {{__('players.list')}}</b></span>
+                <tr>
+                    <th>ID</th>
+                    <th>{{__('players.player')}}</th>
+                    <th>{{__('players.status')}}</th>
+                    <th>{{__('players.rank')}}</th>
+                    <th class="text-center">{{__('players.actions')}}</th>
+                </tr>
+                </thead>
+                @foreach($users as $user)
+                <tr>
+                    <td>{{$user->id}}</td>
+                    <td>{{$user->name}}</td>
+                    <td><div id="status-{{$user->id}}" class="online-status" data-id="{{$user->id}}"><img src="storage/img/{{$user->onlineStatus()['color']}}-dot.png" style="width: 30px; height:30px;"/></div></td>
+                    <td>{{$user->ranking}}</td>
+                    <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a> {{--<a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a>--}}</td>
+                </tr>
+                @endforeach
+            </table>
         </div>
     </div>
     <script>

@@ -33,7 +33,7 @@
 @include('layouts.navigation')
 
 
-<main class="py-4">
+<main class="py-4" style="margin-left:auto; margin-right:auto;">
     @yield('content')
 </main>
 

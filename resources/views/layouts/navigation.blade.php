@@ -22,6 +22,9 @@
                 @endif
             @else
                 <li class="nav-item my-1 mx-2">
+                    <span class="nav-link btn btn-light text-black font-weight-bold" type="button" ><h2>{{Auth::user()->name}}</h2></span>
+                </li>
+                <li class="nav-item my-1 mx-2">
                     <a class="nav-link btn btn-success text-black font-weight-bold" type="button" href="{{route('table.create')}}">{{__('buttons.new_game')}}</a>
                 </li>
 

@@ -73,11 +73,11 @@ class User extends Authenticatable
         $color = 'red';
         $interval = $this->online;
         if($interval) {
-            if ($interval < 30) {
+            if ($interval < 120) {
                 $color = 'green';
-            } else if ($interval < 60) {
+            } else if ($interval < 240) {
                 $color = 'yellow';
-            } else if ($interval < 180) {
+            } else if ($interval < 480) {
                 $color = 'orange';
             }
         }

@@ -2,9 +2,12 @@
 
 return [
     'name' => 'Imię',
-    'ranking' => 'Ranking',
+    'rank' => 'Ranking',
     'avatar' => 'Zdjęcie',
     'actions' => 'Działania',
     'status' => 'Status',
     'never_seen' => 'Nigdy',
+    'list' => 'Lista graczy',
+    'player' => 'Gracz',
+    'players' => 'Gracze',
 ];

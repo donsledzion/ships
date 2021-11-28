@@ -24,8 +24,12 @@ class TableController extends Controller
     {
         $user = User::find(Auth::id());
         $boards = $user->boards;
+        $tables = collect();
+        foreach($boards as $board){
+            $tables->push($board->table);
+        }
         return view('tables.index',[
-            'boards' => $boards
+            'tables' => $tables
         ]);
     }
 
@@ -36,7 +40,7 @@ class TableController extends Controller
      */
     public function create()
     {
-        $users = User::where('id','<>',Auth::id())->get();
+        $users = User::where('id','<>',Auth::id())->orderBy('last_activity','desc')->get();
 
         return View('tables.create',[
             'users' => $users

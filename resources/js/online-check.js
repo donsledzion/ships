@@ -28,13 +28,13 @@ $(function(){
                     }
                 }*/
 
-                $('#status-'+response.user_id).html('<img src="'+baseAsset+'/'+status+'-dot.png" style="width: 30px; height:30 px;" />');
+                $('#status-'+response.user_id).html('<img src="'+baseAsset+'/'+status+'-dot.png" style="width: 30px; height:30px;" />');
             }).fail(function(response){
                 console.log("fail: " + response);
             });
 
         });
 
-    },1000*5);
+    },1000*60);
 });
 

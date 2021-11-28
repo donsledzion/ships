@@ -74,6 +74,17 @@
                 border-radius: 10px
             }
 
+
+            .create-button{
+                margin-top:150px;
+                width:140px;
+                margin-left:100px;
+                margin-right:auto;
+                border: 3px dotted red;
+                border-radius: 10px;
+                font-size:24px;
+            }
+
         }
         @media (min-width: 1200px) {
             .table-container {
@@ -143,6 +154,17 @@
                 border-radius: 15px
             }
 
+
+            .create-button{
+                margin-top:220px;
+                width:240px;
+                margin-left:100px;
+                margin-right:auto;
+                border: 4px dotted red;
+                border-radius: 20px;
+                font-size: 36px;
+            }
+
         }
         .box-label{
             font-weight: bold;
@@ -189,6 +211,7 @@
                 </div>
 
                 <div id="board2" class="board">
+                    @if($table->board2()->initialized)
                     <div class="player-label">
                         <span id="player_2" data-id="{{$table->board2()->user->id}}"  @if($table->current_player==$table->board2()->user->id) class="current-player" @endif>
                             {{$table->board2()->user->name}}
@@ -216,6 +239,9 @@
                             @endfor
                         </div>
                     @endfor
+                @elseif($table->board2()->user->id == Auth::id())
+                        <button class="create-button btn btn-success"><a href="{{route('board.edit',[$table->board2()->id])}}"><b>STWÓRZ</b></a></button>
+                @endif
                 </div>
             </div>
             <div style="clear:both;"></div>

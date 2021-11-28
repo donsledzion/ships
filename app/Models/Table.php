@@ -77,4 +77,23 @@ class Table extends Model
     {
         return User::find($this->current_player);
     }
+
+    public function getStatusAttribute(){
+        if($this->winner){
+            return [
+                'status' => __('games.status.finished'),
+                'picture' => 'winner',
+            ];
+        } else if(!$this->current_player){
+            return [
+                'status' => __('games.status.preparations'),
+                'picture' => 'prepare',
+            ];
+        } else {
+            return [
+                'status' => __('games.status.fight'),
+                'picture' => 'fight',
+            ];
+        }
+    }
 }
