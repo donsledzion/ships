@@ -109,7 +109,7 @@
 
     <script type="text/javascript">
         const playerId = '{{Auth::id()}}';
-        if({{$table->completed === true}}) {
+        if({{$table->current_player === true}}) {
             const player1Id = '{{$table->board1()->user->id}}';
             const player2Id = '{{$table->board2()->user->id}}';
         } else {
