@@ -110,13 +110,13 @@
     <script type="text/javascript">
         const playerId = '{{Auth::id()}}';
 
-        if('{{$table->board1()}}'){
+        if('{{$table->board1()}}' > 0){
             const player1Id = '{{$table->board1()->user->id}}';
         } else {
             const player1Id = null ;
         }
 
-        if('{{$table->board2()}}'){
+        if('{{$table->board2()}}' > 0){
             const player2Id = '{{$table->board2()->user->id}}';
         } else {
             const player2Id = null ;
