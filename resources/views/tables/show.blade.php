@@ -109,13 +109,10 @@
 
     <script type="text/javascript">
         const playerId = '{{Auth::id()}}';
-        if({{$table->current_player === true}}) {
-            const player1Id = '{{$table->board1()->user->id}}';
-            const player2Id = '{{$table->board2()->user->id}}';
-        } else {
-            const player1Id = null;
-            const player2Id = null;
-        }
+
+        const player1Id = null;
+        const player2Id = null;
+
         const baseUrl = '{{url('')}}' ;
         const baseAsset ='{{asset('/storage/img/')}}';
         const tableId = '{{$table->id}}';
