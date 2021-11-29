@@ -1,8 +1,6 @@
 $(function(){
     $('.single-box').click(function(){
-        if((playerId === player1Id)||(playerId === player2Id)) {
-            shot($(this));
-        }
+        shot($(this));
     })
 
     $('.player').click(function(){
