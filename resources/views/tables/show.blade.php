@@ -106,10 +106,22 @@
             <div style="clear:both;"></div>
     </div>
 
+
     <script type="text/javascript">
         const playerId = '{{Auth::id()}}';
-        const player1Id = '{{$table->board1()->user->id}}';
-        const player2Id = '{{$table->board2()->user->id}}';
+
+        if('{{$table->board1()}}'){
+            const player1Id = '{{$table->board1()->user->id}}';
+        } else {
+            const player1Id = null ;
+        }
+
+        if('{{$table->board2()}}'){
+            const player2Id = '{{$table->board2()->user->id}}';
+        } else {
+            const player2Id = null ;
+        }
+
         const baseUrl = '{{url('')}}' ;
         const baseAsset ='{{asset('/storage/img/')}}';
         const tableId = '{{$table->id}}';
