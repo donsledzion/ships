@@ -110,18 +110,8 @@
     <script type="text/javascript">
         const playerId = '{{Auth::id()}}';
 
-        if('{{$table->boards->count() > 0}}'){
-            const player1Id = '{{$table->board1()->user->id}}';
-        } else {
-            const player1Id = null ;
-        }
-
-        if('{{$table->boards->count() > 1}}' ){
-            const player2Id = '{{$table->board2()->user->id}}';
-        } else {
-            const player2Id = null ;
-        }
-
+        const player1Id = null;
+        const player2Id = null;
         const baseUrl = '{{url('')}}' ;
         const baseAsset ='{{asset('/storage/img/')}}';
         const tableId = '{{$table->id}}';
