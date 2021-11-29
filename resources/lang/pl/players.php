@@ -14,4 +14,5 @@ return [
     'free' => 'wolne',
     'join' => 'Dołącz',
     'wait' => 'Oczekuje',
+    'logged_as' => 'Zalogowano jako'
 ];

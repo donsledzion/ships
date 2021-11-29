@@ -186,6 +186,12 @@ class BoardController extends Controller
 
     public function shot(Board $board, string $column, int $row){
         try{
+            if(($board['table']->board1()->user->id!=Auth::id())&&($board['table']->board2()->user->id!=Auth::id())){
+                return response()->json([
+                    'status' => 'fail',
+                    'message' => __('errors.you_are_spectactor')
+                ]);
+            }
             if($board['table']->isCompleted()){
                 return response()->json([
                     'status' => 'fail',

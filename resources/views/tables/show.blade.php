@@ -108,6 +108,8 @@
 
     <script type="text/javascript">
         const playerId = '{{Auth::id()}}';
+        const player1Id = '{{$table->board1()->user->id}}';
+        const player2Id = '{{$table->board2()->user->id}}';
         const baseUrl = '{{url('')}}' ;
         const baseAsset ='{{asset('/storage/img/')}}';
         const tableId = '{{$table->id}}';
