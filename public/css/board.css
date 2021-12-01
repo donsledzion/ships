@@ -15,6 +15,92 @@
     background: #66A5AD;
     padding: .4vw;
 }
+
+
+@media (min-width: 250px) {
+    .table-container {
+        width: 248px;
+        height: 270px;
+        background-color: #98dfb6;
+        border: 1px solid black;
+        border-radius: 3px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .board-container {
+        width: 246px;
+        height: 280px;
+        margin-top: 2px;
+        margin-left: auto;
+        margin-right:auto;
+        background-color: #0f5132;
+        border: 1px solid red;
+    }
+
+    .board {
+        width: 244px;
+        height: 250px;
+        margin-top:1px;
+        margin-left:auto;
+        margin-right:auto;
+        border: 1px solid black;
+        border-radius: 1px;
+        background-color: #c7eed8;
+        padding:1px;
+    }
+
+    .tic-box{
+        width: 21px;
+        height: 21px;
+        border:1px solid black;
+
+        background-color: #20c997;
+        display: table-cell;
+        border-collapse: collapse;
+        overflow: hidden;
+        text-align: center;
+        vertical-align: middle;
+
+        font-size: 0.3rem;
+    }
+
+    .player-label{
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        align-self: center;
+        display: inline-block;
+        padding-top:10px;
+        width: 49%;
+    }
+
+    #available-sequences{
+        float:left;
+        height: 150px;
+        width:50%;
+    }
+
+    .h3{
+        font-size:12px!important;
+        font-weight: bold!important;
+    }
+    .h4{
+        font-size:18px!important;
+    }
+
+
+    #currently-creating{
+        float:left;
+        width:50%;
+    }
+
+    .tic-panel{
+        height:260px
+    }
+}
+
+
 @media (min-width: 380px) {
     .table-container {
         width: 370px;
@@ -61,7 +147,7 @@
         text-align: center;
         vertical-align: middle;
 
-        font-size: 0.5rem;
+        font-size: 0.7rem;
     }
 
     .player-label{
@@ -74,14 +160,43 @@
         width: 49%;
     }
 
-
     #available-sequences{
-        height: 300px;
-        width:auto;
+        float:left;
+        height: 250px;
+        width:50%;
+    }
+
+    .h3{
+        font-size:18px!important;
+        font-weight: bold!important;
+    }
+
+
+    #currently-creating{
+        float:left;
+        width:50%;
+    }
+
+    .tic-panel{
+        height:350px
     }
 }
 
 @media (min-width: 560px) {
+
+    .content{
+        margin-left:auto;
+        margin-right:auto;
+        width:560px;
+    }
+
+    .tic-panel{
+        width:560px;
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+
     .table-container {
         width: 550px;
         height: 590px;
@@ -103,21 +218,20 @@
     }
 
     .board {
-        width: 510px;
+        width: 530px;
         height: 530px;
         margin-top:2px;
         margin-left:auto;
         margin-right:auto;
         border: 1px solid black;
-        border-radius: 1px;
         background-color: #c7eed8;
-        /*float:left;*/
-        padding:1px;
+        padding:9px;
+        border-radius: 10px;
     }
 
     .tic-box{
-        width: 35px;
-        height: 35px;
+        width: 46px;
+        height: 46px;
         border:1px solid black;
 
         background-color: #20c997;
@@ -127,7 +241,7 @@
         text-align: center;
         vertical-align: middle;
 
-        font-size: 0.5rem;
+        font-size: 0.9rem;
     }
 
     .player-label{
@@ -140,19 +254,44 @@
         width: 49%;
     }
 
+    #save-board{
+        overflow: hidden;
+    }
+
+    #currently-creating{
+        float:left;
+        width:50%;
+    }
 
     #available-sequences{
-        height: 300px;
-        width:auto;
+        float:left;
+        width:50%;
+        height:300px;
     }
 
     .tic-panel{
-
+        height: 400px;
     }
 }
 
 
 @media (min-width: 1200px) {
+
+
+    .content{
+        margin-left:auto;
+        display:inline-block;
+        width:740px;
+    }
+
+    .tic-panel{
+        margin-right:auto;
+        float:left;
+        display:inline-block;
+        width:320px;
+        height:auto;
+    }
+
     .table-container {
         width: 1150px;
         height: 650px;
@@ -177,7 +316,7 @@
         width: 700px;
         height: 720px;
         margin-top:10px;
-        margin-left:90px;
+        margin-left:auto;
         margin-right:auto;
         border: 1px solid black;
         border-radius: 20px;
@@ -211,6 +350,9 @@
         width: 49%;
     }
 
+    #currently-creating{
+        width: 300px;
+    }
 
     #available-sequences{
         height: 300px;

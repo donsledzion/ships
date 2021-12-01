@@ -246,7 +246,7 @@ function readBoard(board_id){
 }
 
 function currentShipDraw(current_ship){
-    $('#currently-creating').html('<div class="h2 center">'+current_ship.getName()+'</div><img id="theImg" src="'+baseAsset+'/'+current_ship.getAvatar()+'" style="width:100%; height: 100%; object-fit: cover;" />');
+    $('#currently-creating').html('<div class="h3 center">'+current_ship.getName()+'</div><img id="theImg" src="'+baseAsset+'/'+current_ship.getAvatar()+'" style="width:100%; height: 100%; object-fit: cover;" />');
     $('#available-sequences').html('<div class="h3 center">'+availableSequences+'</div><img id="theImg" src="'+baseAsset+'/'+current_ship.getSequences()+'" style="margin-left: auto; margin-right: auto;height: 100%; object-fit: cover;" />');
 
 }
