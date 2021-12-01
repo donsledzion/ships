@@ -10,8 +10,8 @@
     </style>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-sm-2 ads">  </div>
-            <div class="col-12 col-sm-6 content">
+            <div class="col-12 col-sm-12 col-md-12 col-xl-12 ads">  </div>
+            <div class="col-12 col-sm-6 col-md-6 content">
                 <div class="container-fluid tic-container">
                     <div id="board1" class="board">
                         {{--<div class="player-label">{{$table->board1()->user->name}}</div>--}}
@@ -35,7 +35,7 @@
 
                 </div>
             </div>
-            <div class="col-12 col-sm-2 tic-panel">
+            <div class="col-12 col-sm-12 col-md-12 col-xl-2 tic-panel">
                 <span class="h4 text-white">Aktualnie tworzony:</span>
                 <div id="currently-creating">
 
@@ -48,7 +48,7 @@
             </div>
 
 
-            <div class="col-12 col-sm-2 ads"> ads </div>
+            <div class="col-12 col-sm-12 col-md-12 col-xl-12 ads"> ads </div>
         </div>
     </div>
     <script type="text/javascript">

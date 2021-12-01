@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -82,6 +83,14 @@ class Table extends Model
     public function getCurrentPlayer()
     {
         return User::find($this->current_player);
+    }
+
+    public function hasStarted(){
+        return ((!$this->board1()->initialized)&&($this->board2()->initialized));
+    }
+
+    public function idle(){
+        return Carbon::now()->diffInMinutes(Carbon::createFromFormat('Y-m-d H:i:s',$this->updated_at));
     }
 
     public function getStatusAttribute(){

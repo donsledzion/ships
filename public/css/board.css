@@ -81,6 +81,76 @@
     }
 }
 
+@media (min-width: 560px) {
+    .table-container {
+        width: 550px;
+        height: 590px;
+        background-color: #98dfb6;
+        border: 1px solid black;
+        border-radius: 5px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .board-container {
+        width: 530px;
+        height: 570px;
+        margin-top: 2px;
+        margin-left: auto;
+        margin-right:auto;
+        background-color: #0f5132;
+        border: 1px solid red;
+    }
+
+    .board {
+        width: 510px;
+        height: 530px;
+        margin-top:2px;
+        margin-left:auto;
+        margin-right:auto;
+        border: 1px solid black;
+        border-radius: 1px;
+        background-color: #c7eed8;
+        /*float:left;*/
+        padding:1px;
+    }
+
+    .tic-box{
+        width: 35px;
+        height: 35px;
+        border:1px solid black;
+
+        background-color: #20c997;
+        display: table-cell;
+        border-collapse: collapse;
+        overflow: hidden;
+        text-align: center;
+        vertical-align: middle;
+
+        font-size: 0.5rem;
+    }
+
+    .player-label{
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        align-self: center;
+        display: inline-block;
+        padding-top:10px;
+        width: 49%;
+    }
+
+
+    #available-sequences{
+        height: 300px;
+        width:auto;
+    }
+
+    .tic-panel{
+
+    }
+}
+
 
 @media (min-width: 1200px) {
     .table-container {
