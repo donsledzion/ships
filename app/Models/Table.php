@@ -66,6 +66,34 @@ class Table extends Model
         $this->save();
     }
 
+    public function scorePoints(){
+        $winner_id = $this->winner;
+        if($winner_id) {
+            $player1 = $this->board1()->user;
+            $player2 = $this->board2()->user;
+
+            if($winner_id == $player1->id) {
+                $winner = $player1;
+                $looser = $player2;
+            } else {
+                $winner = $player2;
+                $looser = $player1;
+            }
+        $rank_diff = abs($winner->ranking - $looser->ranking);
+        $prize = (int)($rank_diff + $looser->ranking*0.02) ;
+
+        $winner->updateRanking($prize);
+        $looser->updateRanking((-1)*$prize);
+
+
+        } else {
+            return response()->json([
+                'status' => 'fail',
+                'message' => _('errors.no_winner')
+            ]);
+        }
+    }
+
     public function setWinner($id){
         $this->winner = $id;
         $this->save();

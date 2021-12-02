@@ -91,4 +91,10 @@ class User extends Authenticatable
         ];
 
     }
+
+    public function updateRanking($delta_points){
+        $this->ranking+=$delta_points;
+        $this->save();
+    }
+
 }

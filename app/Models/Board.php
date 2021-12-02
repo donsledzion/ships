@@ -416,12 +416,10 @@ class Board extends Model
                 }
             }
         }
-        error_log("Board is completed - setting as completed");
         $table = Table::find($this['table']->id);
         $table->setCompleted();
-        error_log("Board is completed - setting winner");
         $table->setWinner($this->opponentsBoard()->user->id);
-        error_log("Board is completed - winner set - exiting model");
+        $table->scorePoints();
         return true;
     }
 
