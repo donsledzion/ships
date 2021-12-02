@@ -23,13 +23,17 @@ window.Echo.channel('game.' + tableId)
     .listen('PlayerMoved', function(response){
         console.log("Echo engaged!");
         console.log("Winner: " + response.table.winner);
+        $('#log_list').append("<li>"+response.log+"</li>");
+        $('#game_log').animate({
+            scrollTop: $('#log_list li:last-child').offset().top-20 + 'px'
+        },100);
         if(response.shot_field.result === "missed"){
             if(response.table.current_player == playerId){
                 Swal.fire('Twój ruch!');
             }
         }
         updateCurrentPlayer(response.table.current_player);
-        updateField(response.shot_field);
+        uncoverField(response.shot_field);
         if(response.table.winner != null){
             console.log("Mamy zwycięzcę: " + response.winner);
             Swal.fire(response.winner + ' wygrywa!').then((result)=>{
@@ -64,7 +68,7 @@ function updateCurrentPlayer(currentPlayer){
     }
 }
 
-function updateField(shot_field){
+function uncoverField(shot_field){
 
     var field = $('#'+shot_field.board+'_'+shot_field.x+'_'+shot_field.y);
     if(shot_field.result === "hit"){
@@ -73,8 +77,47 @@ function updateField(shot_field){
         field.html('<img id="theImg" src="'+missedImg+'" style="width:100%; height: 100%; object-fit: cover;" />');
 
     } else if(shot_field.result === 'sunk'){
-        location.reload();
+        /*location.reload();*/
+        updateBoard(shot_field.board);
     }
+}
+
+function updateField(board, column, row, value){
+    let field = $('#'+board+"_"+column+"_"+row);
+
+    if(value === "#"){
+        field.html('<img id="theImg" src="'+redCrossImg+'" style="width:100%; height: 100%; object-fit: cover;" />');
+    } else if(value === "*"){
+        field.html('<img id="theImg" src="'+missedImg+'" style="width:100%; height: 100%; object-fit: cover;" />');
+    }
+}
+
+
+function updateBoard(board_id){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+/*
+    var board1_id = $('#player_1').data("board-id");
+    var board2_id = $('#player_2').data("board-id");*/
+
+    $.ajax({
+        url: baseUrl + '/board/' + board_id
+    }).done(function(response){
+        $.each(response.fields, function(key, value){
+            //console.log("key: " + key);
+            $.each(value, function(deeper_key, deeper_value){
+                updateField(board_id,key,deeper_key,deeper_value);
+                console.log("key: " + key+ ", deeper_key: " + deeper_key + ", deeper_value: " + deeper_value);
+            });
+
+        });
+    }).fail(function(response){
+        console.log(response.fields);
+    })
+
 }
 
 function shot(field){

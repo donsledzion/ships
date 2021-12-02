@@ -1,3 +1,7 @@
+#game_log{
+    display:none;
+}
+
 @media (min-width: 250px) {
     .table-container {
         width: 250px;
@@ -162,7 +166,7 @@
 @media (min-width: 1200px) {
     .table-container {
         width: 1150px;
-        height: 650px;
+        height: 740px;
         background-color: #98dfb6;
         border: 1px solid black;
         border-radius: 50px;
@@ -173,7 +177,8 @@
     .board-container {
         width: 1100px;
         height: 600px;
-        margin-top: 35px;
+        padding-top:5px;
+        margin-top: 0px;
         margin-left: auto;
         margin-right:auto;
         background-color: #0f5132;
@@ -236,6 +241,45 @@
         border: 4px dotted red;
         border-radius: 20px;
         font-size: 24px;
+    }
+
+    #game_log{
+        padding:5px 10px 5px 10px;
+        background-color: #0dcaf0;
+        margin: 10px auto 20px auto;
+        width:600px;
+        height:87px;
+        display:block;
+        border:5px solid gray;
+        border-radius: 25px;
+        overflow-y: scroll;
+    }
+
+    #log_list{
+        padding-bottom:0px;
+        margin-bottom:0px;
+    }
+
+    #game_log::-webkit-scrollbar{
+        overflow-x: hidden;
+        width: 12px;
+    }
+
+    #game_log::-webkit-scrollbar-thumb{
+        background-color: darkolivegreen;    /* color of the scroll thumb */
+        border-radius: 20px;       /* roundness of the scroll thumb */
+        border: 2px solid darkolivegreen;  /* creates padding around scroll thumb */
+    }
+    #game_log::-webkit-scrollbar-corner{
+        display: none;
+    }
+
+    #game_log li{
+        padding:0px;
+        margin:0px;
+        font-size:14px;
+        font-weight: 800;
+
     }
 }
 .box-label{

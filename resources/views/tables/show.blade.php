@@ -11,12 +11,16 @@
     </style>
 
     <div class="table-container">
+        <div id="game_log">
+            <ul id="log_list">
+            </ul>
+        </div>
         <div class="board-container">
                 <div id="board1" class="board">
                     @if($table->board1())
                         @if($table->board1()->initialized)
                         <div class="player-label">
-                            <span id="player_1" data-id="{{$table->board1()->user->id}}" @if($table->current_player==$table->board1()->user->id) class="current-player"@endif>
+                            <span id="player_1" data-id="{{$table->board1()->user->id}}"  data-board-id="{{$table->board1()->id}}" @if($table->current_player==$table->board1()->user->id) class="current-player"@endif>
                                 {{$table->board1()->user->name}}
                             </span>
                         </div>
@@ -62,7 +66,7 @@
                     @if($table->board2())
                         @if($table->board2()->initialized)
                         <div class="player-label">
-                            <span id="player_2" data-id="{{$table->board2()->user->id}}"  @if($table->current_player==$table->board2()->user->id) class="current-player" @endif>
+                            <span id="player_2" data-id="{{$table->board2()->user->id}}" data-board-id="{{$table->board2()->id}}"  @if($table->current_player==$table->board2()->user->id) class="current-player" @endif>
                                 {{$table->board2()->user->name}}
                             </span>
                         </div>

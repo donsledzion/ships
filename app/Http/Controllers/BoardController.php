@@ -59,7 +59,7 @@ class BoardController extends Controller
     {
         return response()->json([
             'status' => 'success',
-            'fields' => json_decode($board->fields)
+            'fields' => json_decode($board->fieldss)
         ]);
     }
 
@@ -215,32 +215,39 @@ class BoardController extends Controller
             $status = 'fail';
             $result = 'none';
             $message = '';
+            $log = '';
 
             $cell = $board->getCell($column,$row);
             if($cell=="#" || $cell=="*"){
                 $message = "To pole już było obstrzelane!";
             } else if($cell=="@"){
+                $log = Auth::user()->name." ".__('game-logs.shoots_at')." ".$column.$row.":";
                 $board->setCell($column,$row,"#");
-                $message = "Trafiony!";
+                $message = __('game-logs.hit')."!";
+                $log .= " ".ucfirst(__('game-logs.hit'));
                 $result = 'hit';
                 if($board->checkIfSunk($column,$row)){
-                    $message.= " ZATOPIONY";
+                    $message.= " ".strtoupper(__('game-logs.sunk'));
+                    $log.= " ".strtoupper(__('game-logs.sunk'));
                     $result = 'sunk';
                     if($board->checkIfCompleted()){
-                        $message.= " ZWYCIĘŻA ".User::find(Auth::id())->name;
+                        $message.= " ".strtoupper(__('game-logs.wins'))." ".User::find(Auth::id())->name;
                     }
                 }
+                $log .= "!";
                 $status = 'success';
             } else {
                 $board->setCell($column,$row,"*");
                 $status = 'success';
                 $result = 'missed';
-                $message = "Pudło!";
+                $message = __('game-logs.missed')."!";
+                $log .= " ".ucfirst(__('game-logs.missed'))."!";
                 $board->table->switchPlayers();
+                $log .= " ".ucfirst(__('game-logs.now_shoots'))." ".ucfirst($board->user->name);
             }
 
 
-            event(new PlayerMoved($message,$board,$column, $row, $result));
+            event(new PlayerMoved($message,$board,$column, $row, $result,$log));
 
             return response()->json([
                 'status' => $status,

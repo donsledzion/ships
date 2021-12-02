@@ -19,6 +19,7 @@ class PlayerMoved implements ShouldBroadcastNow
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
+    public $log;
     public $table;
     public $column;
     public $row;
@@ -30,9 +31,10 @@ class PlayerMoved implements ShouldBroadcastNow
      *
      * @return void
      */
-    public function __construct($message,Board $board, string $column, int $row, string $result)
+    public function __construct($message,Board $board, string $column, int $row, string $result, string $log)
     {
         $this->message = $message;
+        $this->log = $log;
         $this->table = $board->table;
         $this->column = $column;
         $this->row = $row;
@@ -61,6 +63,7 @@ class PlayerMoved implements ShouldBroadcastNow
                 'table' => $table,
                 'winner' => $winner,
                 'message' => $this->message,
+                'log' => $this->log,
                 'shot_field' => [
                     'board' => $this->board_id,
                     'x' => $this->column,
