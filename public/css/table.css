@@ -81,6 +81,45 @@
         font-size:20px;
     }
 
+    #game_log{
+        padding:5px 10px 5px 10px;
+        background-color: #0dcaf0;
+        margin: 10px auto 20px auto;
+        width:240px;
+        height:48px;
+        display:block;
+        border:2px solid gray;
+        border-radius: 10px;
+        overflow-y: scroll;
+    }
+
+    #log_list{
+        padding-bottom:0px;
+        margin-bottom:0px;
+    }
+
+    #game_log::-webkit-scrollbar{
+        overflow-x: hidden;
+        width: 8px;
+    }
+
+    #game_log::-webkit-scrollbar-thumb{
+        background-color: darkolivegreen;    /* color of the scroll thumb */
+        border-radius: 10px;       /* roundness of the scroll thumb */
+        border: 2px solid darkolivegreen;  /* creates padding around scroll thumb */
+    }
+    #game_log::-webkit-scrollbar-corner{
+        display: none;
+    }
+
+    #game_log li{
+        padding:0px;
+        margin:0px;
+        font-size:8px;
+        font-weight: 600;
+
+    }
+
 }
 
 @media (min-width: 380px) {
@@ -160,6 +199,47 @@
         border: 3px dotted red;
         border-radius: 10px;
         font-size:20px;
+    }
+
+
+
+    #game_log{
+        padding:5px 10px 5px 10px;
+        background-color: #0dcaf0;
+        margin: 10px auto 20px auto;
+        width:350px;
+        height:55px;
+        display:block;
+        border:2px solid gray;
+        border-radius: 10px;
+        overflow-y: scroll;
+    }
+
+    #log_list{
+        padding-bottom:0px;
+        margin-bottom:0px;
+    }
+
+    #game_log::-webkit-scrollbar{
+        overflow-x: hidden;
+        width: 8px;
+    }
+
+    #game_log::-webkit-scrollbar-thumb{
+        background-color: darkolivegreen;    /* color of the scroll thumb */
+        border-radius: 10px;       /* roundness of the scroll thumb */
+        border: 2px solid darkolivegreen;  /* creates padding around scroll thumb */
+    }
+    #game_log::-webkit-scrollbar-corner{
+        display: none;
+    }
+
+    #game_log li{
+        padding:0px;
+        margin:0px;
+        font-size:12px;
+        font-weight: 600;
+
     }
 
 }

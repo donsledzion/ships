@@ -232,11 +232,13 @@ class BoardController extends Controller
                     $result = 'sunk';
                     if($board->checkIfCompleted()){
                         $message.= " ".strtoupper(__('game-logs.wins'))." ".User::find(Auth::id())->name;
+                        $log.= "\n".strtoupper(__('game-logs.wins'))." ".User::find(Auth::id())->name;
                     }
                 }
                 $log .= "!";
                 $status = 'success';
             } else {
+                $log = Auth::user()->name." ".__('game-logs.shoots_at')." ".$column.$row.":";
                 $board->setCell($column,$row,"*");
                 $status = 'success';
                 $result = 'missed';

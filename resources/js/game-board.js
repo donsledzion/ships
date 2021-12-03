@@ -99,23 +99,17 @@ function updateBoard(board_id){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-/*
-    var board1_id = $('#player_1').data("board-id");
-    var board2_id = $('#player_2').data("board-id");*/
 
     $.ajax({
         url: baseUrl + '/board/' + board_id
     }).done(function(response){
         $.each(response.fields, function(key, value){
-            //console.log("key: " + key);
             $.each(value, function(deeper_key, deeper_value){
                 updateField(board_id,key,deeper_key,deeper_value);
-                console.log("key: " + key+ ", deeper_key: " + deeper_key + ", deeper_value: " + deeper_value);
             });
-
         });
     }).fail(function(response){
-        console.log(response.fields);
+        console.log(response);
     })
 
 }
