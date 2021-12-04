@@ -1,4 +1,8 @@
-#game_log{
+#game-log{
+    display:none;
+}
+
+#chat-wrapper{
     display:none;
 }
 
@@ -81,10 +85,10 @@
         font-size:20px;
     }
 
-    #game_log{
+    #game-log{
         padding:5px 10px 5px 10px;
         background-color: #0dcaf0;
-        margin: 10px auto 20px auto;
+        margin: 10px auto 2px auto;
         width:240px;
         height:48px;
         display:block;
@@ -93,33 +97,94 @@
         overflow-y: scroll;
     }
 
-    #log_list{
+    #log-list{
         padding-bottom:0px;
         margin-bottom:0px;
     }
 
-    #game_log::-webkit-scrollbar{
+    #game-log::-webkit-scrollbar{
         overflow-x: hidden;
         width: 8px;
     }
 
-    #game_log::-webkit-scrollbar-thumb{
+    #game-log::-webkit-scrollbar-thumb{
         background-color: darkolivegreen;    /* color of the scroll thumb */
         border-radius: 10px;       /* roundness of the scroll thumb */
         border: 2px solid darkolivegreen;  /* creates padding around scroll thumb */
     }
-    #game_log::-webkit-scrollbar-corner{
+    #game-log::-webkit-scrollbar-corner{
         display: none;
     }
 
-    #game_log li{
+    #game-log li{
         padding:0px;
         margin:0px;
         font-size:8px;
         font-weight: 600;
-
     }
 
+    #chat-log li{
+        padding:0px;
+        margin:0px;
+        font-size:10px;
+        font-weight: 600;
+    }
+
+    #chat-wrapper{
+        display: block;
+        /*padding:5px 10px 5px 10px;
+        margin: 10px auto 20px auto;*/
+        height: 120px;
+        width:250px;
+    }
+
+    #chat-box{
+        padding:5px 10px 5px 3px;
+        margin: 2px auto 2px auto;
+        height:55px;
+        width: 240px;
+        border: 2px solid lightcoral;
+        border-radius: 10px;
+        background: #0dcaf0;
+        overflow-y: scroll;
+    }
+
+    #chat-input-box{
+        padding: 2px 0 0 0;
+        margin: 2px auto 2px auto;
+        width: 240px;
+    }
+
+    #chat-input-text{
+        padding: 5px 10px 5px 10px;
+        font-size:12px;
+        border: 2px solid lightsalmon;
+        border-radius: 10px;
+        width: 160px;
+        height: 26px;
+    }
+    .chat-send{
+        padding: 0px 10px 2px 10px!important;
+        margin: 2px auto 2px auto;
+        height:26px!important;
+        border: 2px solid lightsalmon!important;
+        font-weight: 600!important;
+        border-radius: 10px!important;
+    }
+
+    #chat-box::-webkit-scrollbar{
+        overflow-x: hidden;
+        width: 8px;
+    }
+
+    #chat-box::-webkit-scrollbar-thumb{
+        background-color: darkolivegreen;    /* color of the scroll thumb */
+        border-radius: 5px;       /* roundness of the scroll thumb */
+        border: 1px solid darkolivegreen;  /* creates padding around scroll thumb */
+    }
+    #chat-box::-webkit-scrollbar-corner{
+        display: none;
+    }
 }
 
 @media (min-width: 380px) {
@@ -203,10 +268,10 @@
 
 
 
-    #game_log{
+    #game-log{
         padding:5px 10px 5px 10px;
         background-color: #0dcaf0;
-        margin: 10px auto 20px auto;
+        margin: 10px auto 5px auto;
         width:350px;
         height:55px;
         display:block;
@@ -215,38 +280,100 @@
         overflow-y: scroll;
     }
 
-    #log_list{
+    #log-list{
         padding-bottom:0px;
         margin-bottom:0px;
     }
 
-    #game_log::-webkit-scrollbar{
+    #game-log::-webkit-scrollbar{
         overflow-x: hidden;
         width: 8px;
     }
 
-    #game_log::-webkit-scrollbar-thumb{
+    #game-log::-webkit-scrollbar-thumb{
         background-color: darkolivegreen;    /* color of the scroll thumb */
         border-radius: 10px;       /* roundness of the scroll thumb */
         border: 2px solid darkolivegreen;  /* creates padding around scroll thumb */
     }
-    #game_log::-webkit-scrollbar-corner{
+    #game-log::-webkit-scrollbar-corner{
         display: none;
     }
 
-    #game_log li{
+    #game-log li{
         padding:0px;
         margin:0px;
         font-size:12px;
         font-weight: 600;
+    }
 
+    #chat-log li{
+        padding:0px;
+        margin:0px;
+        font-size:12px;
+        font-weight: 600;
+    }
+
+    #chat-wrapper{
+        display: block;
+        /*padding:5px 10px 5px 10px;
+        margin: 10px auto 20px auto;*/
+        height: 110px;
+        width:370px;
+    }
+
+    #chat-box{
+        padding:5px 10px 5px 10px;
+        margin: 2px auto 2px auto;
+        height:55px;
+        width: 350px;
+        border: 2px solid lightcoral;
+        border-radius: 10px;
+        background: #0dcaf0;
+        overflow-y: scroll;
+    }
+
+    #chat-input-box{
+        padding: 2px 0 0 0;
+        margin: 2px auto 2px auto;
+        width: 350px;
+    }
+
+    #chat-input-text{
+        padding: 5px 10px 5px 10px;
+        font-size:12px;
+        border: 2px solid lightsalmon;
+        border-radius: 10px;
+        width: 275px;
+        height: 26px;
+    }
+    .chat-send{
+        padding: 0px 10px 2px 10px!important;
+        margin: 2px auto 2px auto;
+        height:26px!important;
+        border: 2px solid lightsalmon!important;
+        font-weight: 600!important;
+        border-radius: 10px!important;
+    }
+
+    #chat-box::-webkit-scrollbar{
+        overflow-x: hidden;
+        width: 8px;
+    }
+
+    #chat-box::-webkit-scrollbar-thumb{
+        background-color: darkolivegreen;    /* color of the scroll thumb */
+        border-radius: 5px;       /* roundness of the scroll thumb */
+        border: 1px solid darkolivegreen;  /* creates padding around scroll thumb */
+    }
+    #chat-box::-webkit-scrollbar-corner{
+        display: none;
     }
 
 }
 @media (min-width: 1200px) {
     .table-container {
         width: 1150px;
-        height: 740px;
+        height: 780px;
         background-color: #98dfb6;
         border: 1px solid black;
         border-radius: 50px;
@@ -323,44 +450,94 @@
         font-size: 24px;
     }
 
-    #game_log{
+    #game-log{
         padding:5px 10px 5px 10px;
         background-color: #0dcaf0;
-        margin: 10px auto 20px auto;
+        margin: 10px auto 20px 50px;
         width:600px;
-        height:87px;
+        height:130px;
         display:block;
         border:5px solid gray;
         border-radius: 25px;
         overflow-y: scroll;
+        float:left;
     }
 
-    #log_list{
+    #log-list{
         padding-bottom:0px;
         margin-bottom:0px;
     }
 
-    #game_log::-webkit-scrollbar{
+    #game-log::-webkit-scrollbar{
         overflow-x: hidden;
         width: 12px;
     }
 
-    #game_log::-webkit-scrollbar-thumb{
+    #game-log::-webkit-scrollbar-thumb{
         background-color: darkolivegreen;    /* color of the scroll thumb */
         border-radius: 20px;       /* roundness of the scroll thumb */
         border: 2px solid darkolivegreen;  /* creates padding around scroll thumb */
     }
-    #game_log::-webkit-scrollbar-corner{
+    #game-log::-webkit-scrollbar-corner{
         display: none;
     }
 
-    #game_log li{
+    #game-log li{
         padding:0px;
         margin:0px;
         font-size:14px;
         font-weight: 800;
-
     }
+
+    #chat-wrapper{
+        display: block;
+        padding:5px 10px 5px 10px;
+        margin: 10px auto 20px 50px;
+        float:left;
+        height: 120px;
+        width:400px;
+    }
+
+    #chat-box{
+        margin-bottom: 10px;
+        padding: 5px 10px 5px 10px;
+        height:87px;
+        border: 5px solid lightcoral;
+        border-radius: 20px;
+        background: #0dcaf0;
+        overflow-y: scroll;
+    }
+    #chat-input-text{
+        border-radius: 8px;
+        padding: 2px 5px 2px 10px;
+        margin-right: 10px;
+        border: 2px solid lightsalmon;
+        width: 278px;
+        height: 32px;
+        float: left;
+    }
+
+    .chat-send{
+        padding: 2px 10px 2px 10px!important;
+        height:32px!important;
+        border: 2px solid lightsalmon!important;
+        font-weight: 800!important;
+    }
+
+    #chat-box::-webkit-scrollbar{
+        overflow-x: hidden;
+        width: 12px;
+    }
+
+    #chat-box::-webkit-scrollbar-thumb{
+        background-color: darkolivegreen;    /* color of the scroll thumb */
+        border-radius: 20px;       /* roundness of the scroll thumb */
+        border: 2px solid darkolivegreen;  /* creates padding around scroll thumb */
+    }
+    #chat-box::-webkit-scrollbar-corner{
+        display: none;
+    }
+
 }
 .box-label{
     font-weight: bold;

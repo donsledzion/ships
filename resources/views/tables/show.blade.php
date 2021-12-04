@@ -11,10 +11,23 @@
     </style>
 
     <div class="table-container">
-        <div id="game_log">
-            <ul id="log_list">
+        <div id="game-log">
+            <ul id="log-list">
             </ul>
         </div>
+
+        <div id="chat-wrapper">
+            <div id="chat-box">
+                <ul id="chat-log">
+                </ul>
+            </div>
+            <div id="chat-input-box">
+                <input id="chat-input-text" type="text" placeholder="{{__('chat.type your message')}}">
+                <button class="btn btn-info chat-send">{{__('buttons.send')}}</button>
+            </div>
+        </div>
+
+        <div style="clear:both;"></div>
         <div class="board-container">
                 <div id="board1" class="board">
                     @if($table->board1())

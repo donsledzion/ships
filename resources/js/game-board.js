@@ -3,6 +3,11 @@ $(function(){
         shot($(this));
     })
 
+
+    $('.chat-send').click(function(){
+        sendChatMessage();
+    });
+
     $('.player').click(function(){
         var targetURL = baseUrl + '/board/' + $(this).data("board-id");
         console.log('BaseUrl: '+targetURL);
@@ -19,13 +24,22 @@ $(function(){
     })
 })
 
+var message_input = $('#chat-input-text');
+var message_button = $('.chat-send');
+message_input.bind("keyup", function(event){
+    if(event.key === 'Enter'){
+        event.preventDefault();
+        message_button.click();
+    }
+});
+
 window.Echo.channel('game.' + tableId)
     .listen('PlayerMoved', function(response){
         console.log("Echo engaged!");
         console.log("Winner: " + response.table.winner);
-        $('#log_list').append("<li>"+response.log+"</li>");
-        $('#game_log').animate({
-            scrollTop: $('#log_list li:last-child').offset().top-20 + 'px'
+        $('#log-list').append("<li>"+response.log+"</li>");
+        $('#game-log').animate({
+            scrollTop: $('#log-list li:last-child').offset().top + 'px'
         },100);
         if(response.shot_field.result === "missed"){
             if(response.table.current_player == playerId){
@@ -36,6 +50,10 @@ window.Echo.channel('game.' + tableId)
         uncoverField(response.shot_field);
         if(response.table.winner != null){
             console.log("Mamy zwycięzcę: " + response.winner);
+            $('#log-list').append("<li>Wygrywa "+response.winner+"</li>");
+            $('#game-log').animate({
+                scrollTop: $('#log-list li:last-child').offset().top + 'px'
+            },100);
             Swal.fire(response.winner + ' wygrywa!').then((result)=>{
                 if(result.isConfirmed){
                     location.reload();
@@ -54,6 +72,15 @@ window.Echo.channel('creating-table.' + tableId)
             }
     });
 });
+
+window.Echo.channel('game.' + tableId + '.chat')
+    .listen('ChatMessage',function(response){
+        console.log("New chat message: [" + response.author + "]: " + response.message);
+        $('#chat-log').append("<li><b>" + response.author + "</b>: " + response.message + "</li>");
+        $('#chat-box').animate({
+            scrollTop: $('#chat-log li:last-child').offset().top-20 + 'px'
+        },100);
+    });
 
 function updateCurrentPlayer(currentPlayer){
 
@@ -112,6 +139,33 @@ function updateBoard(board_id){
         console.log(response);
     })
 
+}
+
+function sendChatMessage(){
+
+    let input_field = $('#chat-input-text');
+    let message =input_field.val();
+    input_field.val('');
+    if(message !== ''){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: baseUrl + '/table/' + tableId + '/chat',
+            method: 'post',
+            data:{
+                message: message,
+            }
+        }).done(function(response){
+            console.log(response.message);
+        }).fail(function(response){
+            console.log(response);
+        });
+    } else {
+        alert('Wpisz jakąś wiadomość.');
+    }
 }
 
 function shot(field){

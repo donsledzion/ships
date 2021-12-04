@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ChatMessage;
 use App\Models\Board;
 use App\Models\Table;
 use App\Models\User;
@@ -130,6 +131,24 @@ class TableController extends Controller
         return view('tables.lobby',[
             'table' => $table,
         ]);
+    }
+
+    public function chat(Request $request, Table $table){
+        try {
+            $author = Auth::user()->name;
+            $message = $request->message;
+            event(new ChatMessage($author, $message, $table));
+            return response()->json([
+                'status' => 'success',
+                'message' => __('message.chat_message_sent')
+            ]);
+        } catch(\Exception $e){
+            return response()->json([
+                'status' => 'fail',
+                'message' => __('message.chat_message_error').", ".$e->getMessage()
+            ]);
+        }
+
     }
 
     /**

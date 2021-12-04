@@ -1,7 +1,7 @@
 <?php
 
 return [
-
+    'send' => 'wyślij',
     'login' => 'Zaloguj',
     'register' => 'Zarejestruj',
     'logout' => 'Wyloguj',
