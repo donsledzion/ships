@@ -10,6 +10,8 @@ return [
     'my_friends' => 'Moi znajomi',
     'account' => 'Moje konto',
     'current_games' => 'Trwające gry',
+    'save' => 'Zapisz',
+    'fight' => 'Do dzieła',
 
 
 ];

@@ -10,7 +10,6 @@
                 <div class="content">
                     <div class="tic-container">
                         <div id="board1" class="board">
-                            {{--<div class="player-label">{{$table->board1()->user->name}}</div>--}}
                             <div>
                                 <div class="tic-box box-label"></div>
                                 @for($header_col = "A" ; $header_col <= "J" ; $header_col++)
@@ -33,8 +32,8 @@
                 </div>
                 <div class="tic-panel">
                     <div class="tic-panel-label">
-                        <button id="save-board" data-id="{{$board->id}}" class="btn btn-secondary">ZAPISZ</button>
-                        <span class="h4 text-white">Aktualnie tworzony:</span>
+                        <button id="save-board" data-id="{{$board->id}}" class="btn btn-secondary">{{__('buttons.save')}}</button>
+                        <span class="h4 text-white">{{__('ships.creating')}}</span>
                     </div>
 
                     <div id="currently-creating"></div>
@@ -51,6 +50,15 @@
         const nameThreeMaster = '{{__('ships.name.three_master')}}';
         const nameFourMaster = '{{__('ships.name.four_master')}}';
         const availableSequences = '{{__('ships.available_sequences')}}';
+        const ship_is_complete = '{{__('messages.warning.ship_is_complete')}}';
+        const before_start = '{{__('messages.before_start')}}';
+        const set_ships_in_order = '{{__('messages.set_ships_in_order')}}';
+        const one_single_master = '{{__('ships.type.one_single_master')}}';
+        const two_three_masters = '{{__('ships.type.two_three_masters')}}';
+        const three_two_masters = '{{__('ships.type.three_two_masters')}}';
+        const four_one_masters = '{{__('ships.type.four_one_masters')}}';
+        const fight = '{{__('buttons.fight')}}';
+        const seems_ready = '{{__('messages.seems_ready')}}';
     </script>
 @section('js-files')
     <script src="{{ asset('js/edit-board.js') }}" ></script>

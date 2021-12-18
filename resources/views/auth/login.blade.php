@@ -68,7 +68,7 @@
                 </div>
                 @if (Route::has('register'))
                     <div class="card-header"><b>{{ __('auth.Don\'t have an account yet?') }}</b></div>
-                        <a class="nav-link btn btn-primary text-white" {{--type="button"--}}href="{{route('register')}}">{{__('buttons.register')}}</a>
+                        <a class="nav-link btn btn-primary text-white" href="{{route('register')}}">{{__('buttons.register')}}</a>
                     </div>
                 @endif
         </div>
