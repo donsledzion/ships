@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -82,6 +83,9 @@ class User extends Authenticatable
             }
         }
 
+        if($this->id == Auth::id()){
+            $color = 'green';
+        }
 
         return [
             'message' => $this->name.' o ID = '.$this->id.', ostatnio widziany (w sekundach): '. $this->online,
