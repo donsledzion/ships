@@ -251,19 +251,19 @@ function startPopup(){
             '  </a>' +
             '<ul class="list-group">'+
                 '<li class="list-group-item justify-content-between">'+
-                    '+one_single_master+'+
+                    ''+one_single_master+''+
                     '<span class="badge badge-default badge-pill">14</span>'+
                 '</li>'+
                 '<li class="list-group-item justify-content-between">'+
-                    '+two_three_masters+'+
+                    ''+two_three_masters+''+
                     '<span class="badge badge-default badge-pill">2</span>'+
                 '</li>'+
                 '<li class="list-group-item justify-content-between">'+
-                    '+three_two_masters+'+
+                    ''+three_two_masters+''+
                     '<span class="badge badge-default badge-pill">1</span>'+
                 '</li>'+
                 '<li class="list-group-item justify-content-between">'+
-                    '+four_one_masters+'+
+                    ''+four_one_masters+''+
                     '<span class="badge badge-default badge-pill">1</span>'+
                 '</li>'+
             '</ul>',
