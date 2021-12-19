@@ -137,6 +137,8 @@
         const nameTwoMaster = '{{__('ships.name.two_master')}}';
         const nameThreeMaster = '{{__('ships.name.three_master')}}';
         const nameFourMaster = '{{__('ships.name.four_master')}}';
+        const warning_enter_message = '{{__('messages.warning.enter_message')}}';
+        const alert_winner = '{{__('messages.winner')}}'
     </script>
     @section('js-files')
         <script src="{{ asset('js/game-board.js') }}"></script>

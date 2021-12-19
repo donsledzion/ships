@@ -36,25 +36,19 @@ message_input.bind("keyup", function(event){
 window.Echo.channel('game.' + tableId)
     .listen('PlayerMoved', function(response){
         console.log("Echo engaged!");
-        console.log("Winner: " + response.table.winner);
         $('#log-list').append("<li>"+response.log+"</li>");
         $('#game-log').animate({
             scrollTop: $('#log-list li:last-child').offset().top + 'px'
         },100);
-        if(response.shot_field.result === "missed"){
-            if(response.table.current_player == playerId){
-                Swal.fire('Twój ruch!');
-            }
-        }
+
         updateCurrentPlayer(response.table.current_player);
         uncoverField(response.shot_field);
         if(response.table.winner != null){
-            console.log("Mamy zwycięzcę: " + response.winner);
             $('#log-list').append("<li>Wygrywa "+response.winner+"</li>");
             $('#game-log').animate({
                 scrollTop: $('#log-list li:last-child').offset().top + 'px'
             },100);
-            Swal.fire(response.winner + ' wygrywa!').then((result)=>{
+            Swal.fire(response.winner + ' '+alert_winner).then((result)=>{
                 if(result.isConfirmed){
                     location.reload();
                 }
@@ -65,7 +59,6 @@ window.Echo.channel('game.' + tableId)
 
 window.Echo.channel('creating-table.' + tableId)
     .listen('BoardCreated',function(response){
-        console.log("Board has been created!");
         Swal.fire(response.message).then(function(result){
             if(result.isConfirmed) {
                 location.reload();
@@ -75,7 +68,6 @@ window.Echo.channel('creating-table.' + tableId)
 
 window.Echo.channel('game.' + tableId + '.chat')
     .listen('ChatMessage',function(response){
-        console.log("New chat message: [" + response.author + "]: " + response.message);
         $('#chat-log').append("<li><b>" + response.author + "</b>: " + response.message + "</li>");
         $('#chat-box').animate({
             scrollTop: $('#chat-log li:last-child').offset().top-20 + 'px'
@@ -104,7 +96,6 @@ function uncoverField(shot_field){
         field.html('<img id="theImg" src="'+missedImg+'" style="width:100%; height: 100%; object-fit: cover;" />');
 
     } else if(shot_field.result === 'sunk'){
-        /*location.reload();*/
         updateBoard(shot_field.board);
     }
 }
@@ -118,7 +109,6 @@ function updateField(board, column, row, value){
         field.html('<img id="theImg" src="'+missedImg+'" style="width:100%; height: 100%; object-fit: cover;" />');
     }
 }
-
 
 function updateBoard(board_id){
     $.ajaxSetup({
@@ -164,7 +154,7 @@ function sendChatMessage(){
             console.log(response);
         });
     } else {
-        alert('Wpisz jakąś wiadomość.');
+        console.log(warning_enter_message);
     }
 }
 

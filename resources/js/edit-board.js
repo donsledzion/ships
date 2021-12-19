@@ -62,22 +62,18 @@ class Field {
         //top
         if(this.getY()>1){
             neighbours.push(new Field(this.getX(), this.getY()-1));
-            console.log('Dodaję sąsiada: '+neighbours[neighbours.length-1].position());
         }
         //bottom
         if(this.getY()<10){
             neighbours.push(new Field(this.getX(), this.getY()+1));
-            console.log('Dodaję sąsiada: '+neighbours[neighbours.length-1].position());
         }
         //left
         if(this.getXasNumber()>1){
             neighbours.push(new Field(String.fromCharCode(this.getXasNumber()+63), this.getY()));
-            console.log('Dodaję sąsiada: '+neighbours[neighbours.length-1].position());
         }
         //right
         if(this.getXasNumber()<10){
             neighbours.push(new Field(String.fromCharCode(this.getXasNumber()+65), this.getY()));
-            console.log('Dodaję sąsiada: '+neighbours[neighbours.length-1].position());
         }
         return neighbours;
     }
@@ -91,7 +87,6 @@ class Field {
         let neighbours = this.pointNeighbours();
         $.each(neighbours, function(key, value){
             if(value.getStatus() === "free"){
-                console.log("Somsiady: "+value.position());
                 $('#'+value.position()).attr("data-hinted","true").css('background',highlightBoxBg);
                 nextFields.push.value;
                 /*value.hintField();*/
@@ -154,7 +149,7 @@ class Ship {
                 this.markAsCompleted();
             }
         } else {
-            alert('ZIOMUŚ! Nie można już więcej pól dodać do tego statku!');
+            console.log(__('messages.warning.ship_is_complete'));
         }
     }
 
@@ -185,14 +180,10 @@ class Ship {
     }
 
     setCompleted(){
-        console.log("Ustawiam statek jako skończony!");
         this.completed = true;
     }
 
     isCompleted(){
-        if(this.completed){
-            console.log("Statek jest skończony.");
-        }
         return this.completed;
     }
 
@@ -253,32 +244,32 @@ function currentShipDraw(current_ship){
 
 function startPopup(){
     Swal.fire({
-        title: '<strong>Przed rozpoczęciem rozgrywki stwórz swoją planszę</strong>',
+        title: '<strong>'+before_start+'</strong>',
         html:
             '<a href="#" class="list-group-item active">\n' +
-            '    Ustaw na planszy swoje statki w kolejności:\n' +
+            '    '+set_ships_in_order+':\n' +
             '  </a>' +
             '<ul class="list-group">'+
                 '<li class="list-group-item justify-content-between">'+
-                    'Jeden czteromasztowiec'+
+                    '+one_single_master+'+
                     '<span class="badge badge-default badge-pill">14</span>'+
                 '</li>'+
                 '<li class="list-group-item justify-content-between">'+
-                    'Dwa trójmasztowce'+
+                    '+two_three_masters+'+
                     '<span class="badge badge-default badge-pill">2</span>'+
                 '</li>'+
                 '<li class="list-group-item justify-content-between">'+
-                    'Trzy dwumasztowce'+
+                    '+three_two_masters+'+
                     '<span class="badge badge-default badge-pill">1</span>'+
                 '</li>'+
                 '<li class="list-group-item justify-content-between">'+
-                    'Cztery jednomasztowce'+
+                    '+four_one_masters+'+
                     '<span class="badge badge-default badge-pill">1</span>'+
                 '</li>'+
             '</ul>',
         focusConfirm: false,
         confirmButtonText:
-            'Do dzieła!',
+            fight,
     })
 }
 
@@ -337,7 +328,7 @@ $(function(){
             current_ship.addField(field);
             field.hintNeighbours();
         } else {
-            Swal.fire("To pole nie jest dostępne! (nie kombinuj)");
+            Swal.fire(field_unavailable);
         }
         if (current_ship.isCompleted()) {
             current_ship = pickNextShip(current_ship);
@@ -345,7 +336,7 @@ $(function(){
             if (current_ship) {
                 currentShipDraw(current_ship);
             } else {
-                Swal.fire("Wygląda na to, że plansza jest gotowa. Wciśnij przycisk 'ZAPISZ' aby przejsc do stołu i zacząć rozgrywkę.");
+                Swal.fire(seems_ready);
             }
         }
     });
